@@ -8,6 +8,8 @@ import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -20,6 +22,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
@@ -52,8 +55,6 @@ public class EntityInvisibleMan extends EntityCreepBase implements IEntityCanCha
         this.angerLevel = 0;
 
         super.setTexture("textures/entity/invisibleman.png");
-
-        setHeldItem(EnumHand.MAIN_HAND, new ItemStack(Items.STICK));
 
         updateAttributes();
 
@@ -97,7 +98,6 @@ public class EntityInvisibleMan extends EntityCreepBase implements IEntityCanCha
     public void setRevengeTarget(@Nullable EntityLivingBase livingBase)
     {
         super.setRevengeTarget(livingBase);
-
         if (livingBase != null)
         {
             this.angerTargetUUID = livingBase.getUniqueID();
@@ -113,7 +113,6 @@ public class EntityInvisibleMan extends EntityCreepBase implements IEntityCanCha
             if (entity instanceof EntityPlayer)
             {
                 List list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().expand(32D, 32D, 32D));
-
                 for (int j = 0; j < list.size(); j++)
                 {
                     Entity entity1 = (Entity)list.get(j);
@@ -128,7 +127,6 @@ public class EntityInvisibleMan extends EntityCreepBase implements IEntityCanCha
                 becomeAngryAt(entity);
             }
         }
-
         return super.attackEntityFrom(DamageSource.causeMobDamage(this), i);
     }
 
@@ -157,13 +155,8 @@ public class EntityInvisibleMan extends EntityCreepBase implements IEntityCanCha
     public void onLivingUpdate()
     {
         super.onLivingUpdate();
-
-
-
         if(isAngry()) {
             --angerLevel;
-
-            //If just got calmed down, tell the client he isn't angry anymore.
             if(!isAngry()) dataManager.set(anger, false);
         }
         else{

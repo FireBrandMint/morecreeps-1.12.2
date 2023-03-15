@@ -233,7 +233,7 @@ public class ModelRobotTed extends ModelBase
 
         ParticleBreaking.Factory maker = new ParticleBreaking.Factory();
 
-        Particle sugarParticle = maker.createParticle(-1, entity.world, legMiddleX, legY, legMiddleZ, xMov, 0.5f, zMov, Item.getIdFromItem(Items.SUGAR));
+        Particle sugarParticle = maker.createParticle(-1, entity.world, legMiddleX, legY + 0.5f, legMiddleZ, xMov, -0.5f, zMov, Item.getIdFromItem(Items.SUGAR));
 
         //sugarParticle.multipleParticleScaleBy(1f);
 

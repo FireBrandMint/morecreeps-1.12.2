@@ -56,7 +56,7 @@ public class EntityGrowbotGregg extends EntityCreepBase
 
         tasks.addTask(2, new EntityAIBreakDoor(this));
 
-        tasks.addTask(3, new EntityAIMoveTowardsTarget(this, 1.0d, 16.0f));
+        tasks.addTask(3, new EntityAIMoveTowardsTarget(this, 0.2d, 16.0f));
 
         tasks.addTask(4, new EntityAIWanderAvoidWater(this, 1.0d));
 
@@ -128,7 +128,7 @@ public class EntityGrowbotGregg extends EntityCreepBase
         }
         else
         {
-            baseSpeed = 0.5d;
+            baseSpeed = 0.3d;
         }
 
         updateMoveSpeed();
