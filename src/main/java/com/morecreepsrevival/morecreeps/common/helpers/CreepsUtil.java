@@ -4,7 +4,11 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockTorch;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.ParticleBreaking;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.*;
 import net.minecraft.world.IBlockAccess;
@@ -13,6 +17,8 @@ import java.util.Random;
 
 public class CreepsUtil {
     static final float fullRadian = 3.1415926536F;
+
+    static ParticleBreaking.Factory eatingParticlesFactory = new ParticleBreaking.Factory();
 
     /**
      * Returns a random 2d position vector.
@@ -55,6 +61,54 @@ public class CreepsUtil {
     public static double GetRandomUnitMinus(java.util.Random rand)
     {
         return (rand.nextInt(200000) - 100000) * 0.00001;
+    }
+
+    public static void SpawnEatingParticle(
+            World world, double xCoordIn, double yCoordIn, double zCoordIn,
+            double xSpeedIn, double ySpeedIn, double zSpeedIn, float size, Item itemFodder)
+    {
+        if(Minecraft.getMinecraft().isGamePaused()) return;
+
+        Particle toSpawn = eatingParticlesFactory.createParticle(
+                -1,
+                world,
+                xCoordIn,
+                yCoordIn,
+                zCoordIn,
+                xSpeedIn,
+                ySpeedIn,
+                zSpeedIn,
+                Item.getIdFromItem(itemFodder)
+        );
+
+        toSpawn.multipleParticleScaleBy(size);
+
+        Minecraft.getMinecraft().effectRenderer.addEffect(toSpawn);
+    }
+
+    public static void SpawnEatingParticleRGB(
+            World world, double xCoordIn, double yCoordIn, double zCoordIn,
+            double xSpeedIn, double ySpeedIn, double zSpeedIn, float size,
+            float colorRed, float colorGreen, float colorBlue, Item itemFodder)
+    {
+        if(Minecraft.getMinecraft().isGamePaused()) return;
+
+        Particle toSpawn = eatingParticlesFactory.createParticle(
+                -1,
+                world,
+                xCoordIn,
+                yCoordIn,
+                zCoordIn,
+                xSpeedIn,
+                ySpeedIn,
+                zSpeedIn,
+                Item.getIdFromItem(itemFodder)
+        );
+
+        toSpawn.multipleParticleScaleBy(size);
+        toSpawn.setRBGColorF(colorRed, colorGreen, colorBlue);
+
+        Minecraft.getMinecraft().effectRenderer.addEffect(toSpawn);
     }
 
     public static boolean TryPlaceTorch(World world, BlockPos pos)
