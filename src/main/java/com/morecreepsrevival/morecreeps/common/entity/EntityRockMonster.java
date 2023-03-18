@@ -67,17 +67,15 @@ public class EntityRockMonster extends EntityCreepBase implements IEntityCanChan
 
         tasks.addTask(3, new AIAttackEntity());
 
-        tasks.addTask(4, new EntityAIMoveTowardsRestriction(this, 0.45d));
+        tasks.addTask(4, new EntityAIWander(this, 0.85d));
 
         tasks.addTask(5, new EntityAIWanderAvoidWater(this, 1.0d));
 
-        tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0f));
+        tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 24.0f));
 
         tasks.addTask(6, new EntityAILookIdle(this));
 
-        targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-
-        targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
+        targetTasks.addTask(1, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
     }
 
     public class AIAttackEntity extends EntityAIBase {
@@ -108,12 +106,12 @@ public class EntityRockMonster extends EntityCreepBase implements IEntityCanChan
                     this.rockM.attackEntityAsMob(entitylivingbase);
                 }
 
-                this.rockM.getMoveHelper().setMoveTo(entitylivingbase.posX, entitylivingbase.posY, entitylivingbase.posZ, 0.45D);
+                this.rockM.getMoveHelper().setMoveTo(entitylivingbase.posX, entitylivingbase.posY, entitylivingbase.posZ, 1.0D);
             }
             else if (d0 < 256.0D)
             {
                 this.rockM.getLookHelper().setLookPositionWithEntity(this.rockM.getAttackTarget(), 30.0F, 30.0F);
-                this.rockM.getMoveHelper().setMoveTo(this.rockM.getAttackTarget().posX, this.rockM.getAttackTarget().posY, this.rockM.getAttackTarget().posZ, 0.45D);
+                this.rockM.getMoveHelper().setMoveTo(this.rockM.getAttackTarget().posX, this.rockM.getAttackTarget().posY, this.rockM.getAttackTarget().posZ, 1.0D);
 
             }
         }
