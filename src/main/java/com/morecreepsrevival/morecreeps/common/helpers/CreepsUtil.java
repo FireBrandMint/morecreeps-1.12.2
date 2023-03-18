@@ -63,11 +63,11 @@ public class CreepsUtil {
         return (rand.nextInt(200000) - 100000) * 0.00001;
     }
 
-    public static void SpawnEatingParticle(
+    public static Particle SpawnEatingParticle(
             World world, double xCoordIn, double yCoordIn, double zCoordIn,
             double xSpeedIn, double ySpeedIn, double zSpeedIn, float size, Item itemFodder)
     {
-        if(Minecraft.getMinecraft().isGamePaused()) return;
+        if(Minecraft.getMinecraft().isGamePaused()) return null;
 
         Particle toSpawn = eatingParticlesFactory.createParticle(
                 -1,
@@ -84,6 +84,8 @@ public class CreepsUtil {
         toSpawn.multipleParticleScaleBy(size);
 
         Minecraft.getMinecraft().effectRenderer.addEffect(toSpawn);
+
+        return toSpawn;
     }
 
     public static void SpawnEatingParticleRGB(

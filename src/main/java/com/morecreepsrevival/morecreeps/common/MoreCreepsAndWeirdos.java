@@ -15,6 +15,7 @@ import com.morecreepsrevival.morecreeps.common.world.WorldGenStructures;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Biomes;
 import net.minecraft.util.text.TextComponentString;
@@ -24,6 +25,7 @@ import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.ForgeVersion;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.entity.player.AdvancementEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
@@ -138,13 +140,10 @@ public class MoreCreepsAndWeirdos
         event.getRegistry().registerAll(
                 createEntity(EntityGuineaPig.class, "guineapig", MoreCreepsConfig.calculateSpawnRate(MoreCreepsConfig.guineaPigSpawnAmt), 1, 4, EnumCreatureType.CREATURE, 0xA38447, 0xF7F0E1, getBiomesNotType(Type.COLD, Type.SNOWY, Type.NETHER, Type.END)),
                 createEntity(EntityTombstone.class, "tombstone", 0, 0, 0, EnumCreatureType.AMBIENT),
-                createEntity(EntityTrophy.class, "trophy", 0, 0, 0, EnumCreatureType.AMBIENT),
-                createEntity(EntityBabyMummy.class, "babymummy", MoreCreepsConfig.calculateSpawnRate(MoreCreepsConfig.babyMummySpawnAmt), 2, 4, EnumCreatureType.MONSTER, 0xDCDEA8, 0xB1F080, getBiomesNotType(Type.COLD, Type.SNOWY, Type.NETHER, Type.END,
-                        Type.FOREST, Type.VOID, Type.CONIFEROUS, Type.PLAINS, Type.MUSHROOM, Type.HILLS, Type.RIVER, Type.SWAMP)),
-                createEntity(EntityBlackSoul.class, "blacksoul", MoreCreepsConfig.calculateSpawnRate(MoreCreepsConfig.blackSoulSpawnAmt), 2, 4, EnumCreatureType.MONSTER, 0x335D29, 0x000000, getBiomesNotType(Type.COLD, Type.SNOWY, Type.NETHER, Type.END,
-                        Type.FOREST, Type.VOID, Type.CONIFEROUS, Type.PLAINS, Type.MUSHROOM, Type.HILLS, Type.RIVER, Type.SWAMP)),
-                createEntity(EntityMummy.class, "mummy", MoreCreepsConfig.calculateSpawnRate(MoreCreepsConfig.mummySpawnAmt), 1, 5, EnumCreatureType.MONSTER, 0xD5C76E, 0x756918, getBiomesNotType(Type.COLD, Type.SNOWY, Type.NETHER, Type.END,
-                        Type.FOREST, Type.VOID, Type.CONIFEROUS, Type.PLAINS, Type.MUSHROOM, Type.HILLS, Type.RIVER, Type.SWAMP)),
+                createEntity(EntityTrophy.class, "trophy", 0, 0, 0, EnumCreatureType.AMBIENT, 0xF6C126, 0xFBD25B),
+                createEntity(EntityBabyMummy.class, "babymummy", MoreCreepsConfig.calculateSpawnRate(MoreCreepsConfig.babyMummySpawnAmt), 2, 4, EnumCreatureType.MONSTER, 0xDCDEA8, 0xB1F080, getBiomesForType(Type.DRY, Type.SAVANNA, Type.SANDY)),
+                createEntity(EntityBlackSoul.class, "blacksoul", MoreCreepsConfig.calculateSpawnRate(MoreCreepsConfig.blackSoulSpawnAmt), 2, 4, EnumCreatureType.MONSTER, 0x335D29, 0x000000, getBiomesForType(Type.DRY, Type.SAVANNA, Type.SANDY, Type.NETHER)),
+                createEntity(EntityMummy.class, "mummy", MoreCreepsConfig.calculateSpawnRate(MoreCreepsConfig.mummySpawnAmt), 1, 5, EnumCreatureType.MONSTER, 0xD5C76E, 0x756918, getBiomesForType(Type.DRY, Type.SAVANNA, Type.SANDY)),
                 createEntity(EntityGooGoat.class, "googoat", MoreCreepsConfig.calculateSpawnRate(MoreCreepsConfig.gooGoatSpawnAmt), 1, 4, EnumCreatureType.CREATURE, 0x24F50F, 0xC5FFDE, getBiomesForType(Type.FOREST, Type.PLAINS, Type.HILLS, Type.MOUNTAIN, Type.SAVANNA)),
                 createEntity(EntityKid.class, "kid", MoreCreepsConfig.calculateSpawnRate(MoreCreepsConfig.kidSpawnAmt), 1, 1, EnumCreatureType.CREATURE, 0xFF5B4D, 0x9E9E9E, getBiomesNotType(Type.COLD, Type.SNOWY, Type.NETHER, Type.END)),
                 createEntity(EntityLolliman.class, "lolliman", MoreCreepsConfig.calculateSpawnRate(MoreCreepsConfig.lollimanSpawnAmt), 1, 1, EnumCreatureType.CREATURE, 0xFF0000, 0x00FFEC, getBiomesNotType(Type.COLD, Type.SNOWY, Type.NETHER, Type.END)),
@@ -356,6 +355,28 @@ public class MoreCreepsAndWeirdos
         {
             CreepsPacketHandler.INSTANCE.sendTo(new MessagePlayWelcomeSound(), (EntityPlayerMP)event.player);
         }
+    }
+
+    @SubscribeEvent
+    public static void playerArchievementEvent(AdvancementEvent event)
+    {
+        EntityPlayer player = event.getEntityPlayer();
+
+        if(player.world.isRemote) return;
+
+        //((EntityPlayerMP) player).getAdvancements().getProgress()
+
+        String domain = event.getAdvancement().getId().getResourceDomain();
+
+        String advancementname = event.getAdvancement().getId().getResourcePath();
+
+        if(!domain.equals("morecreeps") || advancementname.equals("root")) return;
+
+        EntityTrophy trophy = new EntityTrophy(player.world);
+
+        trophy.positionCorrectlyAround(player);
+
+        player.world.spawnEntity(trophy);
     }
 
     @SubscribeEvent

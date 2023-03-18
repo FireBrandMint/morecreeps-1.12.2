@@ -105,7 +105,7 @@ public class EntityVHS extends EntityCreepBase implements IEntityCanChangeSize {
                 {
                     Entity entity1 = (Entity)list.get(j);
 
-                    if (entity1 instanceof EntityInvisibleMan)
+                    if (entity1 instanceof EntityVHS)
                     {
                         EntityVHS vhs = (EntityVHS)entity1;
                         vhs.getAngry(entity);
