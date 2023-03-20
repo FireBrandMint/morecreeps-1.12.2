@@ -50,17 +50,14 @@ public class HeadwearActivator extends CreepsItem
         //player.sendMessage(new TextComponentString("" + itemid));
         //player.sendMessage(new TextComponentString("" + Item.getIdFromItem(Items.IRON_HELMET)));
 
-        if(itemid == Item.getIdFromItem(Items.LEATHER_HELMET))
-            whenHelmet(world, player, 1);
+
         if(itemid == Item.getIdFromItem(Items.IRON_HELMET))
-            whenHelmet(world, player, 2);
-        if(itemid == Item.getIdFromItem(Items.DIAMOND_HELMET))
-            whenHelmet(world, player, 3);
+            whenIronHelmet(world, player);
 
         return super.onItemRightClick(world, player, hand);
     }
 
-    private void whenHelmet(World world, EntityPlayer player, int level)
+    private void whenIronHelmet(World world, EntityPlayer player)
     {
         player.getCooldownTracker().setCooldown(this, 100);
 
@@ -68,7 +65,7 @@ public class HeadwearActivator extends CreepsItem
         double yp = player.posY;
         double zp = player.posZ;
 
-        double size = 2.7D * level;
+        double size = 8D;
 
         List entitieswithin = world.getEntitiesInAABBexcluding(
                 player, new AxisAlignedBB(xp - size,  yp, zp - size, xp + size, yp + size, zp + size),
