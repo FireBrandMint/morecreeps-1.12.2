@@ -1,10 +1,14 @@
 package com.morecreepsrevival.morecreeps.common.entity;
 
+import com.morecreepsrevival.morecreeps.common.items.CreepsItemHandler;
 import com.morecreepsrevival.morecreeps.common.sounds.CreepsSoundHandler;
+import net.minecraft.client.model.ModelCreeper;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.ai.*;
+import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.pathfinding.NodeProcessor;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
@@ -82,17 +86,34 @@ public class EntityRobotTed extends EntityCreepBase implements IMob, IEntityCanC
         targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityRobotTodd.class, true));
     }
 
-
-
     @Override
     public float getEyeHeight()
     {
         return 2.0f;
     }
 
+    protected void dropItemsOnDeath()
+    {
+        if (rand.nextInt(5) == 0)
+        {
+            dropItem(CreepsItemHandler.ram16k, rand.nextInt(3) + 1);
+        }
+    }
+
     @Override
     public void onLivingUpdate() {
         super.onLivingUpdate();
+        fallDistance += -1.5f;
+
+        if (!this.onGround && this.motionY < 0.0D)
+        {
+            this.motionY *= 0.6D;
+        }
+    }
+
+    @Override
+    public void fall(float distance, float damageMultiplier)
+    {
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.morecreepsrevival.morecreeps.client.models;
 
+import com.morecreepsrevival.morecreeps.common.items.CreepsItemHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
@@ -153,7 +154,7 @@ public class ModelRobotTed extends ModelBase
 
         boolean wichLeg = true;
 
-        for(int i = 0; i < 6; ++i)
+        for(int i = 0; i < 8; ++i)
         {
             spawnSugar(shouldNotSugarSpawn, entity, sProgress, f3, wichLeg);
 

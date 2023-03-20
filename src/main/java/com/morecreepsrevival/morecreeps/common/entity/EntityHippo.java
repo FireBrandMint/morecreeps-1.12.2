@@ -1,5 +1,6 @@
 package com.morecreepsrevival.morecreeps.common.entity;
 
+import com.morecreepsrevival.morecreeps.common.items.CreepsItemHandler;
 import com.morecreepsrevival.morecreeps.common.sounds.CreepsSoundHandler;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -156,6 +157,15 @@ public class EntityHippo extends EntityCreepBase implements IEntityCanChangeSize
         protected boolean shouldMoveTo(World worldIn, BlockPos pos) {
             Block block = worldIn.getBlockState(pos).getBlock();
             return block == Blocks.WATER;
+        }
+    }
+
+    @Override
+    protected void dropItemsOnDeath()
+    {
+        if (rand.nextInt(3) == 1)
+        {
+            dropItem(Items.REEDS, rand.nextInt(5) + 3);
         }
     }
 

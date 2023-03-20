@@ -751,7 +751,7 @@ public class JailManager
             case 1:
                 EntityRatMan ratMan = new EntityRatMan(world);
 
-                ratMan.setLocationAndAngles(placeX, placeY, placeZ, player.rotationYaw, 0.0f);
+                ratMan.setLocationAndAngles(placeX + 1f, placeY, placeZ + 1f, player.rotationYaw, 0.0f);
 
                 ratMan.setInitialHealth();
 
@@ -781,7 +781,7 @@ public class JailManager
             default:
                 EntityPrisoner prisoner = new EntityPrisoner(world);
 
-                prisoner.setLocationAndAngles(placeX, placeY, placeZ, player.rotationYaw, 0.0f);
+                prisoner.setLocationAndAngles(placeX + 1f, placeY, placeZ + 1f, player.rotationYaw, 0.0f);
 
                 prisoner.setInitialHealth();
 

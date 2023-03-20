@@ -31,6 +31,8 @@ public class MoreCreepsConfig
 
     public static boolean rayGunMelt = false;
 
+    public static boolean floobTargetVillagers = true;
+
     public static boolean floobShipExplode = false;
 
     public static boolean publicUrination = true;
@@ -161,6 +163,8 @@ public class MoreCreepsConfig
 
             sendDiscordLink = config.get(miscProperty, "Send Discord Link", true, "Sends a link to the official MoreCreeps Discord when a player joins.").getBoolean();
 
+            classicMode = config.get(miscProperty, "Classic Mode", true, "Keep this on if you want to play the mod the way Freakstritch intended it. Turning this off will add additional content the original mod didn't have.").getBoolean();
+
             unlimitedSpawn = config.get("Spawn", "Unlimited Spawn Length", false, "Once activated, you can set what value you want for mob spawning.").getBoolean();
 
             globalSpawnRate = config.get("Spawn", "Global Spawn Rate", 1.0f, "This setting controls the overall spawn rate. The spawn rate of every mob is multiplied by this number. So 1.0 is the default rate, 2.0 is 2x the rate, 0.5 is half the rate, etc.").getDouble();
@@ -183,6 +187,8 @@ public class MoreCreepsConfig
 
             floobShipExplode = config.get(mobProperty, "Allow Floobship Explosion", false).getBoolean();
 
+            floobTargetVillagers = config.get(mobProperty, "Allow Floobs to Target Villagers", true).getBoolean();
+
             publicUrination = config.get(mobProperty, "Allow Bum Public Urination", true).getBoolean();
 
             jailActive = config.get(worldGen, "Enable Jail", true).getBoolean();
@@ -191,91 +197,89 @@ public class MoreCreepsConfig
 
             blorpMaxSize = config.get(mobProperty, "Blorp Max Size", 6).getInt();
 
-            guineaPigSpawnAmt = config.get(spawnNbr, "Guinea Pig", 8).getInt();
+            guineaPigSpawnAmt = config.get(spawnNbr, "Guinea Pig", 5).getInt();
 
-            babyMummySpawnAmt = config.get(spawnNbr, "Baby Mummy", 8).getInt();
+            babyMummySpawnAmt = config.get(spawnNbr, "Baby Mummy", 1).getInt();
 
-            vhsSpawnAmt = config.get(spawnNbr, "Walking VHS", 8).getInt();
+            blackSoulSpawnAmt = config.get(spawnNbr, "Black Soul", 1).getInt();
 
-            blackSoulSpawnAmt = config.get(spawnNbr, "Black Soul", 5).getInt();
+            mummySpawnAmt = config.get(spawnNbr, "Mummy", 1).getInt();
 
-            mummySpawnAmt = config.get(spawnNbr, "Mummy", 5).getInt();
+            armyGuySpawnAmt = config.get(spawnNbr, "Army Guy", 1).getInt();
 
-            armyGuySpawnAmt = config.get(spawnNbr, "Army Guy", 5).getInt();
+            hotdogSpawnAmt = config.get(spawnNbr, "Hot Dog", 5).getInt();
 
-            hotdogSpawnAmt = config.get(spawnNbr, "Hot Dog", 8).getInt();
+            gooGoatSpawnAmt = config.get(spawnNbr, "Goo Goat", 3).getInt();
 
-            gooGoatSpawnAmt = config.get(spawnNbr, "Goo Goat", 8).getInt();
+            kidSpawnAmt = config.get(spawnNbr, "Kid", 1).getInt();
 
-            kidSpawnAmt = config.get(spawnNbr, "Kid", 5).getInt();
+            lollimanSpawnAmt = config.get(spawnNbr, "Lolliman", 1).getInt();
 
-            lollimanSpawnAmt = config.get(spawnNbr, "Lolliman", 3).getInt();
+            gSpawnAmt = config.get(spawnNbr, "G", 3).getInt();
 
-            gSpawnAmt = config.get(spawnNbr, "G", 8).getInt();
+            robotTedSpawnAmt = config.get(spawnNbr, "Robot Ted", 1).getInt();
 
-            robotTedSpawnAmt = config.get(spawnNbr, "Robot Ted", 8).getInt();
+            robotToddSpawnAmt = config.get(spawnNbr, "Robot Todd", 1).getInt();
 
-            robotToddSpawnAmt = config.get(spawnNbr, "Robot Todd", 8).getInt();
+            lawyerFromHellSpawnAmt = config.get(spawnNbr, "Lawyer From Hell", 3).getInt();
 
-            lawyerFromHellSpawnAmt = config.get(spawnNbr, "Lawyer From Hell", 8).getInt();
+            bigBabySpawnAmt = config.get(spawnNbr, "Big Baby", 5).getInt();
 
-            bigBabySpawnAmt = config.get(spawnNbr, "Big Baby", 6).getInt();
+            thiefSpawnAmt = config.get(spawnNbr, "Thief", 3).getInt();
 
-            thiefSpawnAmt = config.get(spawnNbr, "Thief", 8).getInt();
+            floobSpawnAmt = config.get(spawnNbr, "Floob", 3).getInt();
 
-            floobSpawnAmt = config.get(spawnNbr, "Floob", 7).getInt();
+            floobShipSpawnAmt = config.get(spawnNbr, "Floob Ship", 1).getInt();
 
-            floobShipSpawnAmt = config.get(spawnNbr, "Floob Ship", 2).getInt();
+            horseHeadSpawnAmt = config.get(spawnNbr, "Horse Head", 1).getInt();
 
-            horseHeadSpawnAmt = config.get(spawnNbr, "Horse Head", 8).getInt();
+            digBugSpawnAmt = config.get(spawnNbr, "Dig Bug", 3).getInt();
 
-            digBugSpawnAmt = config.get(spawnNbr, "Dig Bug", 7).getInt();
+            bubbleScumSpawnAmt = config.get(spawnNbr, "Bubble Scum", 3).getInt();
 
-            bubbleScumSpawnAmt = config.get(spawnNbr, "Bubble Scum", 8).getInt();
+            sneakySalSpawnAmt = config.get(spawnNbr, "Sneaky Sal", 5).getInt();
 
-            sneakySalSpawnAmt = config.get(spawnNbr, "Sneaky Sal", 8).getInt();
+            snowDevilSpawnAmt = config.get(spawnNbr, "Snow Devil", 1).getInt();
 
-            snowDevilSpawnAmt = config.get(spawnNbr, "Snow Devil", 8).getInt();
+            blorpSpawnAmt = config.get(spawnNbr, "Blorp", 3).getInt();
 
-            classicMode = config.get(miscProperty, "Classic Mode", true, "Keep this on if you want to play the mod the way Freakstritch intended it. Turning this off will add additional content the original mod didn't have.").getBoolean();
+            camelSpawnAmt = config.get(spawnNbr, "Camel", 1).getInt();
 
-            blorpSpawnAmt = config.get(spawnNbr, "Blorp", 8).getInt();
+            camelJockeySpawnAmt = config.get(spawnNbr, "Camel Jockey", 1).getInt();
 
-            camelSpawnAmt = config.get(spawnNbr, "Camel", 8).getInt();
+            bumSpawnAmt = config.get(spawnNbr, "Bum", 1).getInt();
 
-            camelJockeySpawnAmt = config.get(spawnNbr, "Camel Jockey", 6).getInt();
+            cavemanSpawnAmt = config.get(spawnNbr, "Caveman", 1).getInt();
 
-            bumSpawnAmt = config.get(spawnNbr, "Bum", 8).getInt();
+            desertLizardSpawnAmt = config.get(spawnNbr, "Desert Lizard", 4).getInt();
 
-            cavemanSpawnAmt = config.get(spawnNbr, "Caveman", 5).getInt();
+            evilScientistSpawnAmt = config.get(spawnNbr, "Evil Scientist", 3).getInt();
 
-            desertLizardSpawnAmt = config.get(spawnNbr, "Desert Lizard", 8).getInt();
+            hippoSpawnAmt = config.get(spawnNbr, "Hippo", 3).getInt();
 
-            evilScientistSpawnAmt = config.get(spawnNbr, "Evil Scientist", 2).getInt();
+            hunchbackSpawnAmt = config.get(spawnNbr, "Hunchback", 1).getInt();
 
-            hippoSpawnAmt = config.get(spawnNbr, "Hippo", 8).getInt();
+            invisibleManSpawnAmt = config.get(spawnNbr, "Invisible Man", 1).getInt();
 
-            hunchbackSpawnAmt = config.get(spawnNbr, "Hunchback", 8).getInt();
+            mandogSpawnAmt = config.get(spawnNbr, "Mandog", 1).getInt();
 
-            invisibleManSpawnAmt = config.get(spawnNbr, "Invisible Man", 8).getInt();
+            nonSwimmerSpawnAmt = config.get(spawnNbr, "Non Swimmer", 1).getInt();
 
-            mandogSpawnAmt = config.get(spawnNbr, "Mandog", 8).getInt();
+            preacherSpawnAmt = config.get(spawnNbr, "Preacher", 1).getInt();
 
-            nonSwimmerSpawnAmt = config.get(spawnNbr, "Non Swimmer", 6).getInt();
+            rockMonsterSpawnAmt = config.get(spawnNbr, "Rock Monster", 1).getInt();
 
-            preacherSpawnAmt = config.get(spawnNbr, "Preacher", 8).getInt();
+            rocketGiraffeSpawnAmt = config.get(spawnNbr, "Rocket Giraffe", 1).getInt();
 
-            rockMonsterSpawnAmt = config.get(spawnNbr, "Rock Monster", 8).getInt();
+            zebraSpawnAmt = config.get(spawnNbr, "Zebra", 1).getInt();
 
-            rocketGiraffeSpawnAmt = config.get(spawnNbr, "Rocket Giraffe", 7).getInt();
+            growbotGreggSpawnAmt = config.get(spawnNbr, "Growbot Gregg", 1).getInt();
 
-            zebraSpawnAmt = config.get(spawnNbr, "Zebra", 8).getInt();
+            ponyGirlSpawnAmt = config.get(spawnNbr, "Pony Girl", 1).getInt();
 
-            growbotGreggSpawnAmt = config.get(spawnNbr, "Growbot Gregg", 6).getInt();
+            moneyManSSpawnAmt = config.get(spawnNbr, "Money Man S", 1).getInt();
 
-            ponyGirlSpawnAmt = config.get(spawnNbr, "Pony Girl", 5).getInt();
-
-            moneyManSSpawnAmt = config.get(spawnNbr, "Money Man S", 3).getInt();
+            vhsSpawnAmt = config.get(spawnNbr, "Walking VHS", 1).getInt();
 
             hideUpdateGuiVersion = config.get(miscProperty, "Hide Update for Version", "", "This property is set when you choose to ignore the Update Available popup with the version you're being offered.").getString();
 
@@ -299,24 +303,24 @@ public class MoreCreepsConfig
             return;
         }
 
-        if (moneyManSSpawnAmt < 0 || moneyManSSpawnAmt > 2)
+        if (moneyManSSpawnAmt < 0 || moneyManSSpawnAmt > 12)
         {
             moneyManSSpawnAmt = 1;
         }
 
-        if (vhsSpawnAmt < 0 || vhsSpawnAmt > 8)
+        if (vhsSpawnAmt < 0 || vhsSpawnAmt > 12)
         {
-            vhsSpawnAmt = 2;
+            vhsSpawnAmt = 1;
         }
 
         if (armyGuySpawnAmt < 0 || armyGuySpawnAmt > 12)
         {
-            armyGuySpawnAmt = 5;
+            armyGuySpawnAmt = 1;
         }
 
         if (babyMummySpawnAmt < 0 || babyMummySpawnAmt > 12)
         {
-            babyMummySpawnAmt = 7;
+            babyMummySpawnAmt = 1;
         }
 
         if (bigBabySpawnAmt < 0 || bigBabySpawnAmt > 12)
@@ -324,179 +328,179 @@ public class MoreCreepsConfig
             bigBabySpawnAmt = 5;
         }
 
-        if (blorpSpawnAmt < 0 || blorpSpawnAmt > 8)
+        if (blorpSpawnAmt < 0 || blorpSpawnAmt > 12)
         {
             blorpSpawnAmt = 3;
         }
 
-        if (bubbleScumSpawnAmt < 0 || bubbleScumSpawnAmt > 8)
+        if (bubbleScumSpawnAmt < 0 || bubbleScumSpawnAmt > 12)
         {
             bubbleScumSpawnAmt = 3;
         }
 
-        if (bumSpawnAmt < 0 || bumSpawnAmt > 6)
+        if (bumSpawnAmt < 0 || bumSpawnAmt > 12)
         {
-            bumSpawnAmt = 2;
+            bumSpawnAmt = 1;
         }
 
         if (camelSpawnAmt < 0 || camelSpawnAmt > 12)
         {
-            camelSpawnAmt = 7;
+            camelSpawnAmt = 1;
         }
 
         if (camelJockeySpawnAmt < 0 || camelJockeySpawnAmt > 12)
         {
-            camelJockeySpawnAmt = 6;
+            camelJockeySpawnAmt = 1;
         }
 
         if (cavemanSpawnAmt < 0 || cavemanSpawnAmt > 12)
         {
-            cavemanSpawnAmt = 5;
+            cavemanSpawnAmt = 1;
         }
 
         if (desertLizardSpawnAmt < 0 || desertLizardSpawnAmt > 12)
         {
-            desertLizardSpawnAmt = 7;
+            desertLizardSpawnAmt = 4;
         }
 
         if (digBugSpawnAmt < 0 || digBugSpawnAmt > 12)
         {
-            digBugSpawnAmt = 7;
+            digBugSpawnAmt = 3;
         }
 
-        if (evilScientistSpawnAmt < 0 || evilScientistSpawnAmt > 8)
+        if (evilScientistSpawnAmt < 0 || evilScientistSpawnAmt > 12)
         {
             evilScientistSpawnAmt = 3;
         }
 
-        if (floobSpawnAmt < 0 || floobShipSpawnAmt > 8)
+        if (floobSpawnAmt < 0 || floobShipSpawnAmt > 12)
         {
             floobSpawnAmt = 3;
         }
 
-        if (floobShipSpawnAmt < 0 || floobShipSpawnAmt > 4)
+        if (floobShipSpawnAmt < 0 || floobShipSpawnAmt > 12)
         {
-            floobShipSpawnAmt = 2;
+            floobShipSpawnAmt = 1;
         }
 
         if (gSpawnAmt < 0 || gSpawnAmt > 12)
         {
-            gSpawnAmt = 7;
+            gSpawnAmt = 3;
         }
 
         if (gooGoatSpawnAmt < 0 || gooGoatSpawnAmt > 12)
         {
-            gooGoatSpawnAmt = 7;
+            gooGoatSpawnAmt = 3;
         }
 
         if (guineaPigSpawnAmt < 0 || guineaPigSpawnAmt > 12)
         {
-            guineaPigSpawnAmt = 9;
+            guineaPigSpawnAmt = 5;
         }
 
         if (hippoSpawnAmt < 0 || hippoSpawnAmt > 12)
         {
-            hippoSpawnAmt = 7;
+            hippoSpawnAmt = 3;
         }
 
-        if (horseHeadSpawnAmt < 0 || horseHeadSpawnAmt > 10)
+        if (horseHeadSpawnAmt < 0 || horseHeadSpawnAmt > 12)
         {
-            horseHeadSpawnAmt = 3;
+            horseHeadSpawnAmt = 1;
         }
 
         if (hunchbackSpawnAmt < 0 || hunchbackSpawnAmt > 12)
         {
-            hunchbackSpawnAmt = 7;
+            hunchbackSpawnAmt = 1;
         }
 
         if (invisibleManSpawnAmt < 0 || invisibleManSpawnAmt > 12)
         {
-            invisibleManSpawnAmt = 7;
+            invisibleManSpawnAmt = 1;
         }
 
         if (kidSpawnAmt < 0 || kidSpawnAmt > 12)
         {
-            kidSpawnAmt = 5;
+            kidSpawnAmt = 1;
         }
 
-        if (lawyerFromHellSpawnAmt < 0 || lawyerFromHellSpawnAmt > 7)
+        if (lawyerFromHellSpawnAmt < 0 || lawyerFromHellSpawnAmt > 12)
         {
             lawyerFromHellSpawnAmt = 3;
         }
 
         if (lollimanSpawnAmt < 0 || lollimanSpawnAmt > 12)
         {
-            lollimanSpawnAmt = 3;
+            lollimanSpawnAmt = 1;
         }
 
         if (mandogSpawnAmt < 0 || mandogSpawnAmt > 12)
         {
-            mandogSpawnAmt = 7;
+            mandogSpawnAmt = 1;
         }
 
         if (mummySpawnAmt < 0 || mummySpawnAmt > 12)
         {
-            mummySpawnAmt = 5;
+            mummySpawnAmt = 1;
         }
 
         if (nonSwimmerSpawnAmt < 0 || nonSwimmerSpawnAmt > 12)
         {
-            nonSwimmerSpawnAmt = 5;
+            nonSwimmerSpawnAmt = 1;
         }
 
         if (sneakySalSpawnAmt < 0 || sneakySalSpawnAmt > 12)
         {
-            sneakySalSpawnAmt = 6;
+            sneakySalSpawnAmt = 1;
         }
 
         if (preacherSpawnAmt < 0 || preacherSpawnAmt > 12)
         {
-            preacherSpawnAmt = 7;
+            preacherSpawnAmt = 1;
         }
 
         if (robotTedSpawnAmt < 0 || robotTedSpawnAmt > 12)
         {
-            robotTedSpawnAmt = 7;
+            robotTedSpawnAmt = 1;
         }
 
         if (robotToddSpawnAmt < 0 || robotToddSpawnAmt > 12)
         {
-            robotToddSpawnAmt = 7;
+            robotToddSpawnAmt = 1;
         }
 
         if (rockMonsterSpawnAmt < 0 || rockMonsterSpawnAmt > 5)
         {
-            rockMonsterSpawnAmt = 3;
+            rockMonsterSpawnAmt = 1;
         }
 
         if (rocketGiraffeSpawnAmt < 0 || rocketGiraffeSpawnAmt > 12)
         {
-            rocketGiraffeSpawnAmt = 7;
+            rocketGiraffeSpawnAmt = 1;
         }
 
         if (snowDevilSpawnAmt < 0 || snowDevilSpawnAmt > 12)
         {
-            snowDevilSpawnAmt = 7;
+            snowDevilSpawnAmt = 1;
         }
 
-        if (thiefSpawnAmt < 0 || thiefSpawnAmt > 6)
+        if (thiefSpawnAmt < 0 || thiefSpawnAmt > 12)
         {
             thiefSpawnAmt = 3;
         }
 
         if (zebraSpawnAmt < 0 || zebraSpawnAmt > 12)
         {
-            zebraSpawnAmt = 6;
+            zebraSpawnAmt = 1;
         }
 
-        if (growbotGreggSpawnAmt < 0 || growbotGreggSpawnAmt > 6)
+        if (growbotGreggSpawnAmt < 0 || growbotGreggSpawnAmt > 12)
         {
-            growbotGreggSpawnAmt = 2;
+            growbotGreggSpawnAmt = 1;
         }
 
         if (ponyGirlSpawnAmt < 0 || ponyGirlSpawnAmt > 10)
         {
-            ponyGirlSpawnAmt = 5;
+            ponyGirlSpawnAmt = 1;
         }
 
         if (pyramidRarity < 1 || pyramidRarity > 10)

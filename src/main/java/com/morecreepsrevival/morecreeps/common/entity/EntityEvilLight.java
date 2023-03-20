@@ -21,7 +21,7 @@ public class EntityEvilLight extends EntityCreepBase
 
         creatureType = EnumCreatureType.AMBIENT;
 
-        lifespan = 200;
+        lifespan = 100;
 
         motionZ = rand.nextFloat() * 2.0f - 1.0f;
 
