@@ -147,8 +147,6 @@ public class CreepsItemHandler
 
     public static final Item vHammer = new ItemVhammer();
 
-    public static final Item headwearActv = new HeadwearActivator();
-
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event)
     {
@@ -210,8 +208,7 @@ public class CreepsItemHandler
                 luckyDress,
                 vhsTape,
                 vhsTape2,
-                vHammer,
-                headwearActv
+                vHammer
         );
     }
 
