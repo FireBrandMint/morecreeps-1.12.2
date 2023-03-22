@@ -173,10 +173,7 @@ public class EntityFloobShip extends EntityCreepBase implements IMob
     }
 
     @Override
-    protected SoundEvent getAmbientSound()
-    {
-        return CreepsSoundHandler.floobShipSound;
-    }
+    protected SoundEvent getAmbientSound() { return CreepsSoundHandler.floobShipSound; }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource)
@@ -193,6 +190,12 @@ public class EntityFloobShip extends EntityCreepBase implements IMob
         }
 
         return null;
+    }
+
+    @Override
+    protected float getSoundVolume()
+    {
+        return 0.5f;
     }
 
     @Override
@@ -280,7 +283,7 @@ public class EntityFloobShip extends EntityCreepBase implements IMob
 
             playSound(CreepsSoundHandler.floobShipSpawnSound, getSoundVolume(), getSoundPitch());
 
-            int randInt = rand.nextInt(4) + 3;
+            int randInt = rand.nextInt(2) + 3;
 
             for (int i = 0; i < randInt; i++)
             {
@@ -292,7 +295,7 @@ public class EntityFloobShip extends EntityCreepBase implements IMob
 
                 floob.motionX = rand.nextFloat() * 1.5f;
 
-                floob.motionY = rand.nextFloat() * 2.0f;
+                floob.motionY = rand.nextFloat() * 1.2f;
 
                 floob.motionZ = rand.nextFloat() * 1.5f;
 

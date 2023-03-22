@@ -10,7 +10,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 
-public class EntityEvilPig extends EntityCreepBase implements IMob
+public class EntityEvilPig extends EntityCreepBase implements IMob, IEntityCanChangeSize
 {
     public EntityEvilPig(World worldIn)
     {
@@ -81,5 +81,31 @@ public class EntityEvilPig extends EntityCreepBase implements IMob
         targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
 
         targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
+    }
+
+    @Override
+    public float maxShrink() { return 0.4f; }
+
+    @Override
+    public float getShrinkRayAmount() { return 0.2f; }
+
+    @Override
+    public void onShrink(EntityShrink source) {
+
+    }
+    @Override
+    public float maxGrowth() {
+        return 4.0f;
+    }
+
+    @Override
+    public float getGrowRayAmount()
+    {
+        return 0.2F;
+    }
+
+    @Override
+    public void onGrow(EntityGrow source) {
+
     }
 }

@@ -28,6 +28,7 @@ public class CreepsItemHandler
         }
     };
 
+    //Achievements
     public static final Item floobAchievement = new CreepsItem("floob_achievement");
 
     public static final Item goToHellAchievement = new CreepsItem("gotohell_achievement");
@@ -35,6 +36,11 @@ public class CreepsItemHandler
     public static final Item pigWhispererAchievement = new CreepsItem("pigwhisperer_achievement");
 
     public static final Item theZipperAchievement = new CreepsItem("thezipper_achievement");
+
+    //Particles
+
+
+    //Items
     public static ArmorMaterial ZEBRA_ARMOR = EnumHelper.addArmorMaterial("zebra_armor", "zebra_armor", 25, new int[] {2, 4, 6, 2}, 5, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0);
 
     public static final Item guineaPigRadio = new ItemGuineaPigRadio();
@@ -141,6 +147,12 @@ public class CreepsItemHandler
 
     public static final Item peeBucket = new ItemPeeBuck();
 
+    public static final Item vhsTape = new ItemVHSTape();
+
+    public static final Item vhsTape2 = new ItemTameVHSTape();
+
+    public static final Item vHammer = new ItemVhammer();
+
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event)
     {
@@ -199,7 +211,10 @@ public class CreepsItemHandler
                 ram16k,
                 mobilePhone,
                 medicine,
-                luckyDress
+                luckyDress,
+                vhsTape,
+                vhsTape2,
+                vHammer
         );
     }
 

@@ -20,7 +20,7 @@ import net.minecraft.entity.ai.*;
 
 import javax.annotation.Nonnull;
 
-public class EntityEvilCreature extends EntityCreepBase implements IMob
+public class EntityEvilCreature extends EntityCreepBase implements IMob, IEntityCanChangeSize
 {
     private static final DataParameter<Boolean> jumping = EntityDataManager.<Boolean>createKey(EntityEvilCreature.class, DataSerializers.BOOLEAN);
 
@@ -211,5 +211,31 @@ public class EntityEvilCreature extends EntityCreepBase implements IMob
     public boolean isImmuneToExplosions()
     {
         return true;
+    }
+
+    @Override
+    public float maxShrink() { return 0.7f; }
+
+    @Override
+    public float getShrinkRayAmount() { return 0.2f; }
+
+    @Override
+    public void onShrink(EntityShrink source) {
+
+    }
+    @Override
+    public float maxGrowth() {
+        return 7.0f;
+    }
+
+    @Override
+    public float getGrowRayAmount()
+    {
+        return 0.2F;
+    }
+
+    @Override
+    public void onGrow(EntityGrow source) {
+
     }
 }

@@ -1,5 +1,6 @@
 package com.morecreepsrevival.morecreeps.common.entity;
 
+import com.morecreepsrevival.morecreeps.common.items.CreepsItemHandler;
 import com.morecreepsrevival.morecreeps.common.sounds.CreepsSoundHandler;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.ai.*;
@@ -10,7 +11,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 
-public class EntityRobotTodd extends EntityCreepBase implements IMob
+public class EntityRobotTodd extends EntityCreepBase implements IMob, IEntityCanChangeSize
 {
     public EntityRobotTodd(World worldIn)
     {
@@ -84,6 +85,15 @@ public class EntityRobotTodd extends EntityCreepBase implements IMob
     }
 
     @Override
+    protected void dropItemsOnDeath()
+    {
+        if (rand.nextInt(5) == 0)
+        {
+            dropItem(CreepsItemHandler.battery, rand.nextInt(2) + 1);
+        }
+    }
+
+    @Override
     protected SoundEvent getAmbientSound()
     {
         return CreepsSoundHandler.toddInsultSound;
@@ -99,5 +109,31 @@ public class EntityRobotTodd extends EntityCreepBase implements IMob
     protected SoundEvent getDeathSound()
     {
         return CreepsSoundHandler.toddDeadSound;
+    }
+
+    @Override
+    public float maxShrink() { return 0.3f; }
+
+    @Override
+    public float getShrinkRayAmount() { return 0.25f; }
+
+    @Override
+    public void onShrink(EntityShrink source) {
+
+    }
+    @Override
+    public float maxGrowth() {
+        return 4.0f;
+    }
+
+    @Override
+    public float getGrowRayAmount()
+    {
+        return 0.25F;
+    }
+
+    @Override
+    public void onGrow(EntityGrow source) {
+        this.increaseMoveSpeed(0.05f);
     }
 }

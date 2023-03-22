@@ -7,12 +7,16 @@ import com.morecreepsrevival.morecreeps.common.items.CreepsItemHandler;
 import com.morecreepsrevival.morecreeps.common.networking.CreepsPacketHandler;
 import com.morecreepsrevival.morecreeps.common.networking.message.MessageBuyItemFromSal;
 import com.morecreepsrevival.morecreeps.common.networking.message.MessageRipOffSal;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Keyboard;
+
+import javax.swing.text.html.parser.Entity;
 
 public class GuiSneakySal extends GuiScreen
 {
@@ -30,6 +34,8 @@ public class GuiSneakySal extends GuiScreen
     @Override
     public void initGui()
     {
+        sal.setEntityInvulnerable(true);
+
         Keyboard.enableRepeatEvents(true);
 
         buttonList.clear();
@@ -70,6 +76,7 @@ public class GuiSneakySal extends GuiScreen
     @Override
     public void onGuiClosed()
     {
+        sal.setEntityInvulnerable(false);
         Keyboard.enableRepeatEvents(false);
     }
 

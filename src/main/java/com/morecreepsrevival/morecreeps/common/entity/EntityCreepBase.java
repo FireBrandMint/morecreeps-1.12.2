@@ -24,8 +24,10 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.NodeProcessor;
 import net.minecraft.scoreboard.Team;
 import net.minecraft.util.*;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
@@ -34,6 +36,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.vecmath.Vector2f;
 import java.lang.reflect.Constructor;
 import java.util.UUID;
 
@@ -83,6 +86,8 @@ public class EntityCreepBase extends EntityCreature implements IEntityOwnable
 
     private static final DataParameter<Float> hammerSwing = EntityDataManager.createKey(EntityCreepBase.class, DataSerializers.FLOAT);
 
+    private static final DataParameter<Float> size = EntityDataManager.createKey(EntityCreepBase.class, DataSerializers.FLOAT);
+
     protected String baseTexture = "";
 
     protected float baseHealth = 100.0f;
@@ -90,6 +95,8 @@ public class EntityCreepBase extends EntityCreature implements IEntityOwnable
     protected double baseSpeed = 1.0d;
 
     protected double baseAttackDamage = 1.0d;
+    protected float currentSize = 1f;
+    protected float widthActual, heightActual;
 
     protected EnumCreatureType creatureType = EnumCreatureType.CREATURE;
 
@@ -106,6 +113,15 @@ public class EntityCreepBase extends EntityCreature implements IEntityOwnable
         experienceValue = 5;
 
         updateAttributes();
+    }
+
+    @Override
+    protected void setSize(float width, float height)
+    {
+        super.setSize(width * currentSize, height * currentSize);
+
+        widthActual = width;
+        heightActual = height;
     }
 
     @Override @Nonnull
@@ -171,6 +187,8 @@ public class EntityCreepBase extends EntityCreature implements IEntityOwnable
 
         dataManager.register(texture, "");
 
+        dataManager.register(size, 1f);
+
         dataManager.register(speedBoost, 0);
 
         dataManager.register(owner, "");
@@ -225,6 +243,8 @@ public class EntityCreepBase extends EntityCreature implements IEntityOwnable
 
     protected void updateModelSize()
     {
+        widthActual = width;
+        heightActual = height;
     }
 
     @Override
@@ -332,6 +352,8 @@ public class EntityCreepBase extends EntityCreature implements IEntityOwnable
 
         props.setString("BaseTexture", baseTexture);
 
+        props.setFloat("SizeCreep", dataManager.get(size));
+
         props.setInteger("HealthBoost", dataManager.get(healthBoost));
 
         props.setInteger("Level", getLevel());
@@ -400,6 +422,11 @@ public class EntityCreepBase extends EntityCreature implements IEntityOwnable
             {
                 baseTexture = availableTextures[rand.nextInt(availableTextures.length)];
             }
+        }
+
+        if(props.hasKey("SizeCreep"))
+        {
+            putSizeNBT(props.getFloat("SizeCreep"));
         }
 
         if (props.hasKey("Level"))
@@ -1099,6 +1126,13 @@ public class EntityCreepBase extends EntityCreature implements IEntityOwnable
     {
         super.onLivingUpdate();
 
+        float networkedSize = dataManager.get(size);
+        if(currentSize != networkedSize)
+        {
+            currentSize = networkedSize;
+            setSize(widthActual, heightActual);
+        }
+
         updateArmSwingProgress();
 
         /*Entity ridingEntity = getRidingEntity();
@@ -1325,6 +1359,16 @@ public class EntityCreepBase extends EntityCreature implements IEntityOwnable
         setModelSize(Math.max(0.0f, getModelSize() + f));
     }
 
+    public void growHitboxSize(float f)
+    {
+        dataManager.set(size, dataManager.get(size) + f);
+    }
+
+    public void shrinkHitboxSize(float f)
+    {
+        dataManager.set(size, dataManager.get(size) - f);
+    }
+
     public void decreaseMoveSpeed(float f)
     {
         baseSpeed -= f;
@@ -1418,6 +1462,11 @@ public class EntityCreepBase extends EntityCreature implements IEntityOwnable
         }
 
         return null;
+    }
+
+    protected void putSizeNBT(float f)
+    {
+        dataManager.set(size, f);
     }
 
     protected void setLevel(int i)

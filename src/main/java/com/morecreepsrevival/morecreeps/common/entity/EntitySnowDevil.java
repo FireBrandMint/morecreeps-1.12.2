@@ -18,7 +18,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 
-public class EntitySnowDevil extends EntityCreepBase implements IMob
+public class EntitySnowDevil extends EntityCreepBase implements IMob, IEntityCanChangeSize
 {
     private static final String[] textures = {
             "textures/entity/snowdevil1",
@@ -42,7 +42,7 @@ public class EntitySnowDevil extends EntityCreepBase implements IMob
 
         creatureType = EnumCreatureType.MONSTER;
 
-        setSize(width * 1.6f, height * 1.6f);
+        setSize(width * 1.6f, height * 1f);
 
         baseHealth = (float)rand.nextInt(50) + 15.0f;
 
@@ -187,5 +187,31 @@ public class EntitySnowDevil extends EntityCreepBase implements IMob
     protected SoundEvent getTamedSound()
     {
         return CreepsSoundHandler.snowDevilTamedSound;
+    }
+
+    @Override
+    public float maxShrink() { return 0.4f; }
+
+    @Override
+    public float getShrinkRayAmount() { return 0.2f; }
+
+    @Override
+    public void onShrink(EntityShrink source) {
+
+    }
+    @Override
+    public float maxGrowth() {
+        return 4.0f;
+    }
+
+    @Override
+    public float getGrowRayAmount()
+    {
+        return 0.2F;
+    }
+
+    @Override
+    public void onGrow(EntityGrow source) {
+
     }
 }

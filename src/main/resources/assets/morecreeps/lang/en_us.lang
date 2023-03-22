@@ -48,6 +48,10 @@ item.morecreeps.mobile_phone.name=Mobile Phone
 item.morecreeps.lucky_dress.name=Lucky Dress
 item.morecreeps.medicine.name=Medicine
 item.morecreeps.pee_bucket.name=Pee Bucket
+item.morecreeps.vhstape.name=VHS Tape
+item.morecreeps.vhstape2.name=VHS Tape 2
+item.morecreeps.vhammer.name=VHS Hammer
+item.morecreeps.growbot_growray.name=Grow Ray
 
 # Entities
 entity.morecreeps.guineapig.name=Guinea Pig
@@ -102,6 +106,11 @@ entity.morecreeps.growbot_gregg.name=Growbot Gregg
 entity.morecreeps.ponygirl.name=Pony Girl
 entity.morecreeps.invisible_man.name=Invisible Man
 entity.morecreeps.rock_monster.name=Rock Monster
+entity.morecreeps.vhs.name=Walking VHS
+entity.morecreeps.s.name=S
+entity.morecreeps.desert_lizard.name=Desert Lizard
+entity.morecreeps.hunchbackskeleton.name=Hunchback Skeleton
+entity.morecreeps.hippo.name=Hippo
 
 # Creative Tabs
 itemGroup.creepsTab=More Creeps

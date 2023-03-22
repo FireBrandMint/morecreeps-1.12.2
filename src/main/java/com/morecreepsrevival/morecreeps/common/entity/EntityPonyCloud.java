@@ -3,7 +3,6 @@ package com.morecreepsrevival.morecreeps.common.entity;
 import com.morecreepsrevival.morecreeps.common.sounds.CreepsSoundHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EnumCreatureType;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -33,7 +32,7 @@ public class EntityPonyCloud extends EntityCreepBase
 
         setCreepTypeName("Pony Cloud");
 
-        setSize(width * 0.8f, height * 1.3f);
+        setSize(width * 0.8f, height * 0.5f);
 
         setModelSize(2.0f);
 
@@ -97,6 +96,18 @@ public class EntityPonyCloud extends EntityCreepBase
     }
 
     @Override
+    public void updatePassenger(@Nonnull Entity passenger) {
+        if(isPassenger(passenger) && passenger instanceof EntityPony) {
+            passenger.setPosition(posX, posY + 2.5d, posZ);
+        }
+    }
+
+    @Override
+    public boolean isEntityInvulnerable(@Nonnull DamageSource damageSource) {
+        return true;
+    }
+
+    @Override
     public void onLivingUpdate()
     {
         motionX = 0.0d;
@@ -115,14 +126,12 @@ public class EntityPonyCloud extends EntityCreepBase
         }
 
         Entity firstPassenger = getFirstPassenger();
-
         if (firstPassenger == null && !getDelivered())
         {
             setDead();
         }
 
         double xHeading = -MathHelper.sin(rotationYaw * (float)Math.PI / 180.0f);
-
         double zHeading = MathHelper.cos(rotationYaw * (float)Math.PI / 180.0f);
 
         for (int x = 0; x < 5; x++)
@@ -137,14 +146,13 @@ public class EntityPonyCloud extends EntityCreepBase
                 if (!world.isAirBlock(new BlockPos(posX, posY - 1, posZ)))
                 {
                     firstPassenger.dismountRidingEntity();
-
                     playSound(CreepsSoundHandler.ponyPopOffSound, getSoundVolume(), getSoundPitch());
-
                     playSound(SoundEvents.BLOCK_LAVA_POP, 0.9f, getSoundPitch());
-
                     setDelivered(true);
-
-                    smoke();
+                    for (int j = 0; j < 10; j++)
+                    {
+                        world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, (posX + (double)(rand.nextFloat() * width * 2.0F)) - (double)width, posY + (double)(rand.nextFloat() * height), (posZ + (double)(rand.nextFloat() * width * 2.0F)) - (double)width, rand.nextGaussian() * 0.02D, rand.nextGaussian() * 0.02D, rand.nextGaussian() * 0.02D);
+                    }
                 }
                 else
                 {
@@ -154,12 +162,15 @@ public class EntityPonyCloud extends EntityCreepBase
         }
         else if (getDelivered())
         {
-            motionY = 0.5d;
-        }
-
-        if (posY > 128.0d)
-        {
-            setDead();
+            motionY = -0.05d;
+            for (int j = 0; j < 2; j++)
+            {
+                world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, (posX + (double)(rand.nextFloat() * width * 2.0F)) - (double)width, posY + (double)(rand.nextFloat() * height * 4.0f), (posZ + (double)(rand.nextFloat() * width * 2.0F)) - (double)width, rand.nextGaussian() * 0.2D, rand.nextGaussian() * 0.08D, rand.nextGaussian() * 0.04D);
+            }
+            setModelSize(getModelSize() - 0.050f);
+            if(getModelSize() < 0.15f) {
+                setDead();
+            }
         }
 
         super.onLivingUpdate();

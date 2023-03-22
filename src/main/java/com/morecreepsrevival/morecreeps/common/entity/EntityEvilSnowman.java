@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 
-public class EntityEvilSnowman extends EntityCreepBase implements IMob
+public class EntityEvilSnowman extends EntityCreepBase implements IMob, IEntityCanChangeSize
 {
     private int updateSizeTime = 0;
 
@@ -275,5 +275,31 @@ public class EntityEvilSnowman extends EntityCreepBase implements IMob
         zRatio *= 8.3000001907348633D;
 
         super.knockBack(entity, strength, xRatio, zRatio);
+    }
+
+    @Override
+    public float maxShrink() { return 0.7f; }
+
+    @Override
+    public float getShrinkRayAmount() { return 0.2f; }
+
+    @Override
+    public void onShrink(EntityShrink source) {
+
+    }
+    @Override
+    public float maxGrowth() {
+        return 7.0f;
+    }
+
+    @Override
+    public float getGrowRayAmount()
+    {
+        return 0.2F;
+    }
+
+    @Override
+    public void onGrow(EntityGrow source) {
+
     }
 }

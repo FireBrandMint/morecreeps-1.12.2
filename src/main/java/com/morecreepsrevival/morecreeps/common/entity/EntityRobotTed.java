@@ -1,18 +1,22 @@
 package com.morecreepsrevival.morecreeps.common.entity;
 
-import com.morecreepsrevival.morecreeps.common.MoreCreepsAndWeirdos;
+import com.morecreepsrevival.morecreeps.common.items.CreepsItemHandler;
 import com.morecreepsrevival.morecreeps.common.sounds.CreepsSoundHandler;
+import net.minecraft.client.model.ModelCreeper;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.ai.*;
+import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.pathfinding.NodeProcessor;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityRobotTed extends EntityCreepBase implements IMob
+public class EntityRobotTed extends EntityCreepBase implements IMob, IEntityCanChangeSize
 {
 
     public int floattimer;
@@ -36,6 +40,8 @@ public class EntityRobotTed extends EntityCreepBase implements IMob
         floattimer = 0;
 
         updateAttributes();
+
+
     }
 
     @Override
@@ -54,6 +60,8 @@ public class EntityRobotTed extends EntityCreepBase implements IMob
         nodeProcessor.setCanSwim(true);
 
         nodeProcessor.setCanEnterDoors(true);
+
+
 
         tasks.addTask(1, new EntityAISwimming(this));
 
@@ -77,15 +85,35 @@ public class EntityRobotTed extends EntityCreepBase implements IMob
 
         targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityRobotTodd.class, true));
     }
+
     @Override
     public float getEyeHeight()
     {
         return 2.0f;
     }
 
+    protected void dropItemsOnDeath()
+    {
+        if (rand.nextInt(5) == 0)
+        {
+            dropItem(CreepsItemHandler.ram16k, rand.nextInt(3) + 1);
+        }
+    }
+
     @Override
     public void onLivingUpdate() {
         super.onLivingUpdate();
+        fallDistance += -1.5f;
+
+        if (!this.onGround && this.motionY < 0.0D)
+        {
+            this.motionY *= 0.6D;
+        }
+    }
+
+    @Override
+    public void fall(float distance, float damageMultiplier)
+    {
     }
 
     @Override
@@ -115,5 +143,31 @@ public class EntityRobotTed extends EntityCreepBase implements IMob
     protected SoundEvent getDeathSound()
     {
         return CreepsSoundHandler.tedDeadSound;
+    }
+
+    @Override
+    public float maxShrink() { return 0.6f; }
+
+    @Override
+    public float getShrinkRayAmount() { return 0.15f; }
+
+    @Override
+    public void onShrink(EntityShrink source) {
+
+    }
+    @Override
+    public float maxGrowth() {
+        return 6.0f;
+    }
+
+    @Override
+    public float getGrowRayAmount()
+    {
+        return 0.15F;
+    }
+
+    @Override
+    public void onGrow(EntityGrow source) {
+        this.increaseMoveSpeed(0.15f);
     }
 }

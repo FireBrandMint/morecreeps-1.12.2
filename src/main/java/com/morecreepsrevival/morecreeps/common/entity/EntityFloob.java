@@ -1,7 +1,9 @@
 package com.morecreepsrevival.morecreeps.common.entity;
 
+import com.morecreepsrevival.morecreeps.common.config.MoreCreepsConfig;
 import com.morecreepsrevival.morecreeps.common.items.CreepsItemHandler;
 import com.morecreepsrevival.morecreeps.common.sounds.CreepsSoundHandler;
+import net.minecraft.client.renderer.entity.RenderCreeper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.IRangedAttackMob;
@@ -18,7 +20,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 
-public class EntityFloob extends EntityCreepBase implements IRangedAttackMob, IMob
+public class EntityFloob extends EntityCreepBase implements IRangedAttackMob, IMob, IEntityCanChangeSize
 {
     public EntityFloob(World worldIn)
     {
@@ -72,7 +74,14 @@ public class EntityFloob extends EntityCreepBase implements IRangedAttackMob, IM
 
         targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
 
-        targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityVillager.class, true));
+        if(MoreCreepsConfig.floobTargetVillagers) {
+            targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityVillager.class, true));
+        }
+    }
+
+    @Override
+    public void onLivingUpdate() {
+        super.onLivingUpdate();
     }
 
     @Override
@@ -127,5 +136,31 @@ public class EntityFloob extends EntityCreepBase implements IRangedAttackMob, IM
     @Override
     public void setSwingingArms(boolean swingingArms)
     {
+    }
+
+    @Override
+    public float maxShrink() { return 0.5f; }
+
+    @Override
+    public float getShrinkRayAmount() { return 0.2f; }
+
+    @Override
+    public void onShrink(EntityShrink source) {
+
+    }
+    @Override
+    public float maxGrowth() {
+        return 5.0f;
+    }
+
+    @Override
+    public float getGrowRayAmount()
+    {
+        return 0.2F;
+    }
+
+    @Override
+    public void onGrow(EntityGrow source) {
+
     }
 }

@@ -297,6 +297,8 @@ public class CreepsSoundHandler
 
     public static final SoundEvent horseHeadSound = createSound("horsehead");
 
+    public static final SoundEvent hippoAmbientSound = createSound("hippo");
+
     public static final SoundEvent hippoHurtSound = createSound("hippohurt");
 
     public static final SoundEvent hippoDeathSound = createSound("hippodeath");
@@ -579,6 +581,28 @@ public class CreepsSoundHandler
     public static final SoundEvent rockMonsterDeath = createSound("rockmonsterdeath");
 
     public static final SoundEvent rockMonsterHurt = createSound("rockmonsterhurt");
+
+    public static final SoundEvent vhsHurt = createSound("vhshurt");
+
+    public static final SoundEvent vhsDeath = createSound("vhsdeath");
+
+    public static final SoundEvent vhsHammer = createSound("vhshammer");
+
+    public static final SoundEvent vhsInsert = createSound("vhsinsert");
+
+    public static final SoundEvent sAmbient = createSound("sambient");
+
+    public static final SoundEvent sHurt = createSound("shurt");
+
+    public static final SoundEvent sDeath = createSound("sdeath");
+
+    public static final SoundEvent desertLizard = createSound("desertlizard");
+
+    public static final SoundEvent desertLizardHurt = createSound("desertlizardhurt");
+
+    public static final SoundEvent desertLizardDeath = createSound("desertlizarddeath");
+
+    public static final SoundEvent desertLizardFireball = createSound("desertlizardfireball");
 
 
     private static SoundEvent createSound(String soundName)
@@ -873,7 +897,17 @@ public class CreepsSoundHandler
                 invisibleManHurt,
                 rockMonsterHurt,
                 rockMonster,
-                rockMonsterDeath
+                rockMonsterDeath,
+                vhsHurt,
+                vhsDeath,
+                vhsHammer,
+                vhsInsert,
+                sHurt,
+                sAmbient,
+                sDeath,
+                desertLizard,
+                desertLizardDeath,
+                desertLizardHurt
         );
     }
 }

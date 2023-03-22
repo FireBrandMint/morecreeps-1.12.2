@@ -11,7 +11,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-public class EntityBubbleScum extends EntityCreepBase
+public class EntityBubbleScum extends EntityCreepBase implements IEntityCanChangeSize
 {
     public EntityBubbleScum(World worldIn)
     {
@@ -146,5 +146,32 @@ public class EntityBubbleScum extends EntityCreepBase
         motionZ = 1.0d * d1;
 
         motionY = 1.0d * d2;
+    }
+
+    @Override
+    public float maxShrink() { return 0.3f; }
+
+    @Override
+    public float getShrinkRayAmount() { return 0.15f; }
+
+    @Override
+    public void onShrink(EntityShrink source) {
+
+    }
+
+    @Override
+    public float maxGrowth() {
+        return 3.0f;
+    }
+
+    @Override
+    public float getGrowRayAmount()
+    {
+        return 0.15F;
+    }
+
+    @Override
+    public void onGrow(EntityGrow source) {
+
     }
 }

@@ -49,7 +49,6 @@ public class MessageOpenGuiSneakySal implements IMessage
                 if (sal != null)
                 {
                     minecraft.player.playSound(CreepsSoundHandler.salGreetingSound, 1.0f, 1.0f);
-
                     minecraft.displayGuiScreen(new GuiSneakySal(sal));
                 }
             });

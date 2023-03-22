@@ -17,7 +17,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-public class EntityLolliman extends EntityCreepBase
+public class EntityLolliman extends EntityCreepBase implements IEntityCanChangeSize
 {
     private static final DataParameter<Boolean> kidMounted = EntityDataManager.<Boolean>createKey(EntityLolliman.class, DataSerializers.BOOLEAN);
 
@@ -289,5 +289,31 @@ public class EntityLolliman extends EntityCreepBase
                 }
             }
         }
+    }
+
+    @Override
+    public float maxShrink() { return 0.5f; }
+
+    @Override
+    public float getShrinkRayAmount() { return 0.25f; }
+
+    @Override
+    public void onShrink(EntityShrink source) {
+
+    }
+    @Override
+    public float maxGrowth() {
+        return 5.0f;
+    }
+
+    @Override
+    public float getGrowRayAmount()
+    {
+        return 0.25F;
+    }
+
+    @Override
+    public void onGrow(EntityGrow source) {
+
     }
 }

@@ -29,7 +29,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 
-public class EntityBum extends EntityCreepBase implements IMob
+public class EntityBum extends EntityCreepBase implements IMob, IEntityCanChangeSize
 {
     private static final DataParameter<Integer> timeToPee = EntityDataManager.createKey(EntityBum.class, DataSerializers.VARINT);
 
@@ -271,7 +271,9 @@ public class EntityBum extends EntityCreepBase implements IMob
 
                         setTimeToPee(rand.nextInt(1900) + 1500);
 
-                        dropItem(CreepsItemHandler.peeBucket, 1);
+                        if(!world.isRemote) {
+                            dropItem(CreepsItemHandler.peeBucket, 1);
+                        }
 
                         itemStack.shrink(1);
                     }
@@ -467,5 +469,31 @@ public class EntityBum extends EntityCreepBase implements IMob
         }
 
         return flag;
+    }
+
+    @Override
+    public float maxShrink() { return 0.4f; }
+
+    @Override
+    public float getShrinkRayAmount() { return 0.2f; }
+
+    @Override
+    public void onShrink(EntityShrink source) {
+
+    }
+    @Override
+    public float maxGrowth() {
+        return 4.0f;
+    }
+
+    @Override
+    public float getGrowRayAmount()
+    {
+        return 0.2F;
+    }
+
+    @Override
+    public void onGrow(EntityGrow source) {
+
     }
 }

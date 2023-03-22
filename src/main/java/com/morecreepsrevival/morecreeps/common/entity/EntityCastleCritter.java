@@ -12,7 +12,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 
-public class EntityCastleCritter extends EntityCreepBase implements IMob
+public class EntityCastleCritter extends EntityCreepBase implements IMob, IEntityCanChangeSize
 {
     public EntityCastleCritter(World worldIn)
     {
@@ -118,5 +118,31 @@ public class EntityCastleCritter extends EntityCreepBase implements IMob
     public boolean getCanSpawnHere()
     {
         return true;
+    }
+
+    @Override
+    public float maxShrink() { return 0.4f; }
+
+    @Override
+    public float getShrinkRayAmount() { return 0.2f; }
+
+    @Override
+    public void onShrink(EntityShrink source) {
+
+    }
+    @Override
+    public float maxGrowth() {
+        return 4.0f;
+    }
+
+    @Override
+    public float getGrowRayAmount()
+    {
+        return 0.2F;
+    }
+
+    @Override
+    public void onGrow(EntityGrow source) {
+
     }
 }
