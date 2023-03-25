@@ -29,7 +29,7 @@ public class EntityBlackSoul extends EntityCreepBase implements IMob, IEntityCan
 
         baseHealth = 50.0f;
 
-        baseSpeed = 0.33d;
+        baseSpeed = 0.25d;
 
         baseAttackDamage = 7.0d;
 
@@ -51,7 +51,7 @@ public class EntityBlackSoul extends EntityCreepBase implements IMob, IEntityCan
 
         tasks.addTask(2, new EntityAIBreakDoor(this));
 
-        tasks.addTask(3, new EntityAIAttackMelee(this, 1.0d, true));
+        tasks.addTask(3, new EntityAIAttackMelee(this, 0.9d, true));
 
         tasks.addTask(4, new EntityAIMoveTowardsRestriction(this, 0.5d));
 

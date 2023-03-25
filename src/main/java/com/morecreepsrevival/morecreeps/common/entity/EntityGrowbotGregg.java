@@ -204,7 +204,7 @@ public class EntityGrowbotGregg extends EntityCreepBase
     @Override
     protected void dropItemsOnDeath()
     {
-        dropItem(CreepsItemHandler.growbotGrowRay, 1);
+        dropItem(CreepsItemHandler.growRay, 1);
     }
 
 }

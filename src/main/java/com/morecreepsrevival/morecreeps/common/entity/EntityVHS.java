@@ -76,11 +76,6 @@ public class EntityVHS extends EntityCreepBase implements IEntityCanChangeSize {
     }
 
     @Override
-    protected SoundEvent getTamedSound()
-    {
-        return CreepsSoundHandler.guineaPigLevelUpSound;
-    }
-    @Override
     public void setRevengeTarget(@Nullable EntityLivingBase livingBase)
     {
         super.setRevengeTarget(livingBase);
@@ -165,7 +160,7 @@ public class EntityVHS extends EntityCreepBase implements IEntityCanChangeSize {
     @Override
     protected void dropItemsOnDeath()
     {
-        if (rand.nextInt(10) == 1)
+        if (rand.nextInt(5) == 1)
         {
             dropItem(CreepsItemHandler.vhsTape, rand.nextInt(1) + 1);
         }

@@ -120,18 +120,26 @@ public class EntityRockMonster extends EntityCreepBase implements IEntityCanChan
     @Override
     protected void dropItemsOnDeath()
     {
-        if (rand.nextInt(10) == 0)
+        if (rand.nextInt(5) == 0)
         {
-            dropItem(Item.getItemFromBlock(Blocks.SAND), rand.nextInt(3) + 1);
+            dropItem(Item.getItemFromBlock(Blocks.SAND), rand.nextInt(5) + 1);
         }
 
-        if (rand.nextInt(10) == 0)
+        if (rand.nextInt(5) == 0)
         {
-            dropItem(Item.getItemFromBlock(Blocks.GRAVEL), rand.nextInt(3) + 1);
+            dropItem(Item.getItemFromBlock(Blocks.GRAVEL), rand.nextInt(2) + 1);
+        }
+        if (rand.nextInt(5) == 0)
+        {
+            dropItem(Item.getItemFromBlock(Blocks.COBBLESTONE), rand.nextInt(4) + 1);
         }
         if (rand.nextInt(20) == 0)
         {
-            dropItem(Items.IRON_INGOT, rand.nextInt(1) + 1);
+            dropItem(Items.IRON_INGOT, rand.nextInt(3) + 1);
+        }
+        if (rand.nextInt(20) == 0)
+        {
+            dropItem(Item.getItemFromBlock(Blocks.MOSSY_COBBLESTONE), 5);
         }
     }
 

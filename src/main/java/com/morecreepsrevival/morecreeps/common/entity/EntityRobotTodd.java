@@ -1,5 +1,6 @@
 package com.morecreepsrevival.morecreeps.common.entity;
 
+import com.morecreepsrevival.morecreeps.common.items.CreepsItemHandler;
 import com.morecreepsrevival.morecreeps.common.sounds.CreepsSoundHandler;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.ai.*;
@@ -81,6 +82,15 @@ public class EntityRobotTodd extends EntityCreepBase implements IMob, IEntityCan
 
     public boolean canBleed() {
         return false;
+    }
+
+    @Override
+    protected void dropItemsOnDeath()
+    {
+        if (rand.nextInt(5) == 0)
+        {
+            dropItem(CreepsItemHandler.battery, rand.nextInt(2) + 1);
+        }
     }
 
     @Override

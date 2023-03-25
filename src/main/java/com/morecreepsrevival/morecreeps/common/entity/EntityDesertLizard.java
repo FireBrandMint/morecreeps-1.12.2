@@ -74,11 +74,17 @@ public class EntityDesertLizard extends EntityCreepBase implements IEntityCanCha
 
         tasks.addTask(6, new AILizardFireballAttack(this));
 
-        tasks.addTask(6, new EntityAIAttackMelee(this, 0.55d, false));
+        tasks.addTask(6, new EntityAIAttackMelee(this, 1.0d, false));
 
         targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
 
         targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
+    }
+
+    @Override
+    public float getEyeHeight()
+    {
+        return 0.1f;
     }
     public class AILizardFireballAttack extends EntityAIBase {
 
@@ -122,7 +128,7 @@ public class EntityDesertLizard extends EntityCreepBase implements IEntityCanCha
                        fireball.posZ = posZ + vec3d.z * d5;
                        parentEntity.playSound(CreepsSoundHandler.desertLizardFireball,1.0f, 1.0f);
                        world.spawnEntity(fireball);
-                       fireballTime = 80;
+                       fireballTime = 180;
                    }
                 }
             }
@@ -132,12 +138,12 @@ public class EntityDesertLizard extends EntityCreepBase implements IEntityCanCha
     @Override
     protected void dropItemsOnDeath()
     {
-        if (rand.nextInt(10) == 0)
+        if (rand.nextInt(5) == 0)
         {
             dropItem(Items.COOKED_PORKCHOP, rand.nextInt(5) + 1);
         }
 
-        if (rand.nextInt(10) == 0)
+        if (rand.nextInt(5) == 0)
         {
             dropItem(Items.BONE, rand.nextInt(8) + 1);
         }

@@ -12,7 +12,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityDesertLizardFireball extends EntityFireball {
 
-    public int explosionPower = 1;
+    public int explosionPower = 0;
 
     public EntityDesertLizardFireball(World worldin) {
         super(worldin);
@@ -38,9 +38,8 @@ public class EntityDesertLizardFireball extends EntityFireball {
                 result.entityHit.attackEntityFrom(DamageSource.causeFireballDamage(this, this.shootingEntity), 6.0F);
                 this.applyEnchantments(this.shootingEntity, result.entityHit);
             }
-
             boolean flag = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.world, this.shootingEntity);
-            this.world.newExplosion((Entity)null, this.posX, this.posY, this.posZ, (float)this.explosionPower, flag, flag);
+            this.world.newExplosion((Entity)null, this.posX, this.posY, this.posZ, (float)this.explosionPower, true, flag);
             this.setDead();
         }
     }
