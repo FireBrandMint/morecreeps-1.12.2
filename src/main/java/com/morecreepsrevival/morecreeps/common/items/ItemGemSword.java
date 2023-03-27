@@ -58,16 +58,17 @@ public class ItemGemSword extends CreepsItemSword
         }
     }
 
-    /*
+
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
     {
         BlockPos bpos = new BlockPos(playerIn.posX, playerIn.posY, playerIn.posZ);
 
-        if(!worldIn.isRemote) new WorldGenCastle().generate(worldIn, itemRand, bpos);
+        //if(!worldIn.isRemote) new WorldGenCastle().generate(worldIn, itemRand, bpos);
+        if(!worldIn.isRemote) JailManager.buildJail(playerIn, worldIn, itemRand);
 
         return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
-    }*/
+    }
 
     @Override
     public float getSoundVolume()

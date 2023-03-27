@@ -24,6 +24,7 @@ import net.minecraft.tileentity.TileEntityMobSpawner;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
@@ -43,7 +44,7 @@ public class JailManager
     {
         if(STRUCTURE != null) return true;
 
-        ResourceLocation location = new ResourceLocation(MoreCreepsAndWeirdos.modid, "prison");
+        ResourceLocation location = new ResourceLocation(MoreCreepsAndWeirdos.modid, "prison(with mobs)");
         MinecraftServer serv = world.getMinecraftServer();
         TemplateManager manager = ((WorldServer) world).getStructureTemplateManager();
         STRUCTURE = manager.get(serv, location);
@@ -62,11 +63,7 @@ public class JailManager
             return false;
         }
 
-        return oldBuildJail(player, world, rand);
-
-        //Cound't implement this patch
-        //TODO: GJ, aka me -> finish this
-        //return newBuildJail(player, world, rand);
+        return newBuildJail(player, world, rand);
     }
 
     private static boolean newBuildJail(EntityPlayer player, World world, Random rand)
@@ -107,7 +104,14 @@ public class JailManager
 
         STRUCTURE.addBlocksToWorld(world, structurepos, settings);
 
-        fixPlayer(player, new Vec3i(structurepos.getX(), jailY, jailZ));
+        Vec3i playerpos = new Vec3i(structurepos.getX(), jailY, jailZ);
+
+        for(int i = 0; i < 10; ++i)
+        {
+            spawnLawyerGoul(world, playerpos.getX(), playerpos.getY(), playerpos.getZ());
+        }
+
+        fixPlayer(player, playerpos);
 
         return true;
     }
@@ -927,5 +931,18 @@ public class JailManager
         player.heal(20.0f);
 
         player.playSound(CreepsSoundHandler.lawyerBustedSound, 1.0f, 1.0f);
+    }
+
+    private static void spawnLawyerGoul(World world, double strux, double struy, double struz)
+    {
+        EntityLawyerFromHell lawyer = new EntityLawyerFromHell(world);
+
+        lawyer.setPosition(strux + 7, struy - 2, struz + 6);
+
+        world.spawnEntity(lawyer);
+
+        lawyer.setUndead(true);
+
+        lawyer.setInitialHealth();
     }
 }

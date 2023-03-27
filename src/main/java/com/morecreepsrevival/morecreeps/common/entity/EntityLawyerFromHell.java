@@ -17,6 +17,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -416,6 +417,33 @@ public class EntityLawyerFromHell extends EntityCreepBase implements IMob, IEnti
         {
             playSound(CreepsSoundHandler.lawyerTakeSound, getSoundVolume(), getSoundPitch());
         }
+    }
+
+    @Override
+    public void writeEntityToNBT(NBTTagCompound compound)
+    {
+        super.writeEntityToNBT(compound);
+
+        NBTTagCompound props = compound.getCompoundTag("MoreCreepsLawyerFromHell");
+
+        props.setBoolean("Undead", dataManager.get(undead));
+
+        compound.setTag("MoreCreepsLawyerFromHell", props);
+    }
+
+    @Override
+    public void readEntityFromNBT(NBTTagCompound compound)
+    {
+        super.readEntityFromNBT(compound);
+
+        NBTTagCompound props = compound.getCompoundTag("MoreCreepsLawyerFromHell");
+
+        if(props.hasKey("Undead"))
+        {
+            setUndead( props.getBoolean("Undead"));
+        }
+
+        dataManager.setDirty(undead);
     }
 
     @Override
