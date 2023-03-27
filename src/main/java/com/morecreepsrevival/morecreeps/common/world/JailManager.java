@@ -1,5 +1,6 @@
 package com.morecreepsrevival.morecreeps.common.world;
 
+import com.morecreepsrevival.morecreeps.common.MoreCreepsAndWeirdos;
 import com.morecreepsrevival.morecreeps.common.entity.*;
 import com.morecreepsrevival.morecreeps.common.helpers.CreepsUtil;
 import com.morecreepsrevival.morecreeps.common.items.CreepsItemHandler;
@@ -17,19 +18,101 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.tileentity.TileEntityMobSpawner;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3i;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
+import net.minecraft.world.gen.structure.template.PlacementSettings;
+import net.minecraft.world.gen.structure.template.Template;
+import net.minecraft.world.gen.structure.template.TemplateManager;
 
 import java.util.Random;
 
 public class JailManager
 {
+    static Template STRUCTURE = null;
     private static final int maxObstruct = 99999;
 
+    public static boolean tryCasheStructure(World world)
+    {
+        if(STRUCTURE != null) return true;
+
+        ResourceLocation location = new ResourceLocation(MoreCreepsAndWeirdos.modid, "prison");
+        MinecraftServer serv = world.getMinecraftServer();
+        TemplateManager manager = ((WorldServer) world).getStructureTemplateManager();
+        STRUCTURE = manager.get(serv, location);
+        if(STRUCTURE == null) return false;
+
+        return true;
+    }
+
     public static boolean buildJail(EntityPlayer player, World world, Random rand)
+    {
+
+        boolean loaded = tryCasheStructure(world);
+        if(!loaded)
+        {
+            player.sendMessage(new TextComponentString("Couldn't generate jail 2."));
+            return false;
+        }
+
+        return oldBuildJail(player, world, rand);
+
+        //Cound't implement this patch
+        //TODO: GJ, aka me -> finish this
+        //return newBuildJail(player, world, rand);
+    }
+
+    private static boolean newBuildJail(EntityPlayer player, World world, Random rand)
+    {
+
+        BlockPos structuresize = STRUCTURE.getSize();
+
+        int randInt = rand.nextInt(200) - 100;
+
+        if (rand.nextInt(2) == 0)
+        {
+            randInt *= -1;
+        }
+
+        int jailX = (int)player.posX + randInt;
+
+        int jailY = rand.nextInt(20) + 25;
+
+        int jailZ = (int)player.posZ + randInt;
+
+        if(!isJailPossible(player, world, rand, jailX, jailY, jailZ))
+        {
+            player.sendMessage(new TextComponentString("Couldn't generate jail. 1"));
+            return false;
+        }
+
+        BlockPos structurepos = new BlockPos(
+                jailX - structuresize.getZ() / 2,
+                jailY - structuresize.getY() / 2,
+                jailZ - structuresize.getZ() / 2
+        );
+
+        PlacementSettings settings = new PlacementSettings().setIgnoreStructureBlock(false);
+
+        IBlockState state = world.getBlockState(structurepos);
+
+        world.notifyBlockUpdate(structurepos, state, state, 3);
+
+        STRUCTURE.addBlocksToWorld(world, structurepos, settings);
+
+        fixPlayer(player, new Vec3i(structurepos.getX(), jailY, jailZ));
+
+        return true;
+    }
+
+    private static boolean oldBuildJail(EntityPlayer player, World world, Random rand)
     {
         int randInt = rand.nextInt(200) - 100;
 
@@ -791,5 +874,58 @@ public class JailManager
 
                 break;
         }
+    }
+
+    public static boolean isJailPossible(EntityPlayer player, World world, Random rand, int jailX, int jailY, int jailZ)
+    {
+
+        if (!world.isBlockLoaded(new BlockPos(jailX, jailY, jailZ - 31)) || !world.isBlockLoaded(new BlockPos(jailX + 14, jailY, jailZ - 31)) || !world.isBlockLoaded(new BlockPos(jailX, jailY, jailZ + 45)) || !world.isBlockLoaded(new BlockPos(jailX + 14, jailY, jailZ + 45)))
+        {
+            return false;
+        }
+
+        int area = 0;
+
+        for (int i = -1; i < 6; i++)
+        {
+            for (int k = -1; k < 14; k++)
+            {
+                for (int q = -1; q < 14; q++)
+                {
+                    if (world.isAirBlock(new BlockPos(jailX + k, jailY + i, jailZ + q)))
+                    {
+                        area++;
+
+                        if (area > JailManager.maxObstruct)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+
+        Block block = world.getBlockState(new BlockPos(jailX + 16, jailY + 20, jailZ + 7)).getBlock();
+
+        if (block == Blocks.FLOWING_WATER || block == Blocks.WATER)
+        {
+            area++;
+
+            if (area > JailManager.maxObstruct)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private static void fixPlayer(EntityPlayer player, Vec3i structurepos)
+    {
+        player.setPositionAndUpdate(structurepos.getX() + 7, structurepos.getY() - 2, structurepos.getZ() + 2);
+
+        player.heal(20.0f);
+
+        player.playSound(CreepsSoundHandler.lawyerBustedSound, 1.0f, 1.0f);
     }
 }
