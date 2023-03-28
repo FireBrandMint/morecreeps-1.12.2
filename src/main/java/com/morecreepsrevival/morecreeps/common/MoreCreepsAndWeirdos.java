@@ -7,6 +7,8 @@ import com.morecreepsrevival.morecreeps.common.entity.*;
 import com.morecreepsrevival.morecreeps.common.networking.message.MessageDismountEntity;
 import com.morecreepsrevival.morecreeps.common.networking.message.MessageSetJumping;
 import com.morecreepsrevival.morecreeps.common.sounds.CreepsSoundHandler;
+import com.morecreepsrevival.morecreeps.common.world.JailManager;
+import com.morecreepsrevival.morecreeps.common.world.WorldGenCastle;
 import com.morecreepsrevival.morecreeps.proxy.IProxy;
 import com.morecreepsrevival.morecreeps.common.capabilities.CreepsCapabilityHandler;
 import com.morecreepsrevival.morecreeps.common.networking.message.MessagePlayWelcomeSound;
@@ -27,6 +29,7 @@ import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.ForgeVersion;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.player.AdvancementEvent;
+import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
@@ -329,6 +332,13 @@ public class MoreCreepsAndWeirdos
     public void postInit(FMLPostInitializationEvent event)
     {
         proxy.postInit(event);
+    }
+
+    @SubscribeEvent @SideOnly(Side.SERVER)
+    public static void loadWorld(WorldEvent.Load event)
+    {
+        JailManager.tryCasheStructure(event.getWorld());
+        WorldGenCastle.tryCasheStructure(event.getWorld());
     }
 
     @SubscribeEvent
