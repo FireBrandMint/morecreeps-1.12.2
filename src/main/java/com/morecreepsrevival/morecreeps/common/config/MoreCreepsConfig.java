@@ -237,7 +237,7 @@ public class MoreCreepsConfig
 
             bubbleScumSpawnAmt = config.get(spawnNbr, "Bubble Scum", 3).getInt();
 
-            sneakySalSpawnAmt = config.get(spawnNbr, "Sneaky Sal", 5).getInt();
+            sneakySalSpawnAmt = config.get(spawnNbr, "Sneaky Sal", 1).getInt();
 
             snowDevilSpawnAmt = config.get(spawnNbr, "Snow Devil", 1).getInt();
 

@@ -172,7 +172,7 @@ public class MoreCreepsAndWeirdos
                 createEntity(EntityHotdog.class, "hotdog", MoreCreepsConfig.calculateSpawnRate(MoreCreepsConfig.hotdogSpawnAmt), 1, 2, EnumCreatureType.CREATURE, 0x7C5C32, 0x000000, getBiomesForType(Type.FOREST, Type.PLAINS, Type.MOUNTAIN, Type.HILLS)),
                 createEntity(EntityDigBug.class, "digbug", MoreCreepsConfig.calculateSpawnRate(MoreCreepsConfig.digBugSpawnAmt), 1, 1, EnumCreatureType.CREATURE, 0x58BA4C, 0xE6DD58, getBiomesNotType(Type.COLD, Type.SNOWY, Type.NETHER, Type.END)),
                 createEntity(EntityBubbleScum.class, "bubblescum", MoreCreepsConfig.calculateSpawnRate(MoreCreepsConfig.bubbleScumSpawnAmt), 1, 1, EnumCreatureType.CREATURE, 0xCE51BE, 0x67E6ED, getBiomesNotType(Type.COLD, Type.SNOWY, Type.NETHER, Type.END)),
-                createEntity(EntitySneakySal.class, "sneakysal", MoreCreepsConfig.calculateSpawnRate(MoreCreepsConfig.sneakySalSpawnAmt), 1, 1, EnumCreatureType.MONSTER, 0x0E1317, 0x959595, getBiomesForType(Type.COLD, Type.SNOWY, Type.CONIFEROUS)),
+                createEntity(EntitySneakySal.class, "sneakysal", MoreCreepsConfig.calculateSpawnRate(MoreCreepsConfig.sneakySalSpawnAmt), 1, 1, EnumCreatureType.MONSTER, 0x0E1317, 0x959595, getBiomesForType(Type.COLD, Type.SNOWY, Type.CONIFEROUS, Type.WASTELAND, Type.DRY, Type.PLAINS, Type.MOUNTAIN)),
                 createEntity(EntityRatMan.class, "ratman", 0, 1, 2, EnumCreatureType.MONSTER, 0x565656, 0xF0A7F1),
                 createEntity(EntityPrisoner.class, "prisoner", 0, 1, 1, EnumCreatureType.CREATURE, 0xFBFBFB, 0xAAAAAA),
                 createEntity(EntityBullet.class, "bullet", 0, 0, 0, EnumCreatureType.AMBIENT),
