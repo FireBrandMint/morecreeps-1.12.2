@@ -34,6 +34,8 @@ public class EntityBlorp extends EntityCreepBase implements IEntityCanChangeSize
 
         setModelSize(1.0f);
 
+        setSize(1.0f, 1.5f);
+
         baseAttackDamage = 2.0d;
 
         baseHealth = 35.0f;
@@ -94,7 +96,8 @@ public class EntityBlorp extends EntityCreepBase implements IEntityCanChangeSize
 
                     if (getModelSize() < 6.0f)
                     {
-                        setModelSize(getModelSize() + 0.3f);
+                        growModelSize(0.15f);
+                        growHitboxSize(0.15f);
                     }
 
                     setLevel(getLevel() + 1);
@@ -292,14 +295,6 @@ public class EntityBlorp extends EntityCreepBase implements IEntityCanChangeSize
     }
 
     @Override
-    protected void setModelSize(float f)
-    {
-        super.setModelSize(f);
-
-        setSize(0.6f * f, 2.0f + 1.8f * f);
-    }
-
-    @Override
     public boolean attackEntityFrom(@Nonnull DamageSource damageSource, float amt)
     {
         boolean flag = super.attackEntityFrom(damageSource, amt);
@@ -359,7 +354,7 @@ public class EntityBlorp extends EntityCreepBase implements IEntityCanChangeSize
     @Override
     public float getGrowRayAmount()
     {
-        return 0.25F;
+        return 0.15F;
     }
 
     @Override

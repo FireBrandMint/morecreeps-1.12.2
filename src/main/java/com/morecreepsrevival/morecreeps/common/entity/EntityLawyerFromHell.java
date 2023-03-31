@@ -481,7 +481,8 @@ public class EntityLawyerFromHell extends EntityCreepBase implements IMob, IEnti
             }
             else if (rand.nextInt(5) == 0)
             {
-                // TODO: spawn bum
+                EntityBum bum = new EntityBum(world);
+                world.spawnEntity(bum);
             }
             else if (!world.isRemote && rand.nextInt(10) == 0)
             {
