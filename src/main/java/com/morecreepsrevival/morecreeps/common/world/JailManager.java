@@ -59,7 +59,6 @@ public class JailManager
         boolean loaded = tryCasheStructure(world);
         if(!loaded)
         {
-            player.sendMessage(new TextComponentString("Couldn't generate jail 2."));
             return false;
         }
 
@@ -86,7 +85,6 @@ public class JailManager
 
         if(!isJailPossible(player, world, rand, jailX, jailY, jailZ))
         {
-            player.sendMessage(new TextComponentString("Couldn't generate jail. 1"));
             return false;
         }
 
