@@ -13,5 +13,6 @@ public class RenderInvisibleMan<T extends EntityInvisibleMan> extends RenderCree
     {
         super(renderManager, new ModelBiped(), 0.5f);
 
+        addLayer(new LayerHeldItem(this));
     }
 }

@@ -56,6 +56,8 @@ public class EntityInvisibleMan extends EntityCreepBase implements IEntityCanCha
 
         super.setTexture("textures/entity/invisibleman.png");
 
+        setHeldItem(EnumHand.MAIN_HAND, new ItemStack(Items.STICK));
+
         updateAttributes();
 
     }

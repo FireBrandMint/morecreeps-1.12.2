@@ -4,6 +4,7 @@ import com.morecreepsrevival.morecreeps.client.gui.GuiUpdate;
 import com.morecreepsrevival.morecreeps.common.capabilities.IPlayerJumping;
 import com.morecreepsrevival.morecreeps.common.capabilities.PlayerJumpingProvider;
 import com.morecreepsrevival.morecreeps.common.entity.*;
+import com.morecreepsrevival.morecreeps.common.items.CreepsItemHandler;
 import com.morecreepsrevival.morecreeps.common.networking.message.MessageDismountEntity;
 import com.morecreepsrevival.morecreeps.common.networking.message.MessageSetJumping;
 import com.morecreepsrevival.morecreeps.common.sounds.CreepsSoundHandler;
@@ -16,11 +17,13 @@ import com.morecreepsrevival.morecreeps.common.config.MoreCreepsConfig;
 import com.morecreepsrevival.morecreeps.common.networking.CreepsPacketHandler;
 import com.morecreepsrevival.morecreeps.common.world.WorldGenStructures;
 import net.minecraft.client.Minecraft;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Biomes;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.client.event.GuiScreenEvent;
@@ -63,7 +66,7 @@ public class MoreCreepsAndWeirdos
 
     public static final String name = "More Creeps And Weirdos Revival";
 
-    public static final String version = "1.0.24";
+    public static final String version = "1.0.25";
 
     public static final String updateJSON = "https://www.morecreepsrevival.com/update.json";
 
@@ -78,6 +81,14 @@ public class MoreCreepsAndWeirdos
     private static final Random rand = new Random();
 
     private static boolean checkedVersion = false;
+
+    public static final CreativeTabs creativeTab = new CreativeTabs("creepsTab")
+    {
+        public ItemStack getTabIconItem()
+        {
+            return new ItemStack(CreepsItemHandler.floobAchievement);
+        }
+    };
 
     private static final String[] welcomeMessages = {
             "Now, go out there and have some fun!",
@@ -144,9 +155,9 @@ public class MoreCreepsAndWeirdos
                 createEntity(EntityGuineaPig.class, "guineapig", MoreCreepsConfig.calculateSpawnRate(MoreCreepsConfig.guineaPigSpawnAmt), 1, 4, EnumCreatureType.CREATURE, 0xA38447, 0xF7F0E1, getBiomesForType(Type.FOREST, Type.PLAINS, Type.MOUNTAIN, Type.HILLS)),
                 createEntity(EntityTombstone.class, "tombstone", 0, 0, 0, EnumCreatureType.AMBIENT),
                 createEntity(EntityTrophy.class, "trophy", 0, 0, 0, EnumCreatureType.AMBIENT, 0xF6C126, 0xFBD25B),
-                createEntity(EntityBabyMummy.class, "babymummy", MoreCreepsConfig.calculateSpawnRate(MoreCreepsConfig.babyMummySpawnAmt), 2, 4, EnumCreatureType.MONSTER, 0xDCDEA8, 0xB1F080, getBiomesForType(Type.DRY, Type.SAVANNA, Type.SANDY, Type.HOT, Type.DEAD)),
-                createEntity(EntityBlackSoul.class, "blacksoul", MoreCreepsConfig.calculateSpawnRate(MoreCreepsConfig.blackSoulSpawnAmt), 2, 4, EnumCreatureType.MONSTER, 0x335D29, 0x000000, getBiomesForType(Type.DRY, Type.SAVANNA, Type.SANDY, Type.NETHER)),
-                createEntity(EntityMummy.class, "mummy", MoreCreepsConfig.calculateSpawnRate(MoreCreepsConfig.mummySpawnAmt), 1, 5, EnumCreatureType.MONSTER, 0xD5C76E, 0x756918, getBiomesForType(Type.DRY, Type.SAVANNA, Type.SANDY, Type.HOT, Type.DEAD)),
+                createEntity(EntityBabyMummy.class, "babymummy", MoreCreepsConfig.calculateSpawnRate(MoreCreepsConfig.babyMummySpawnAmt), 1, 4, EnumCreatureType.MONSTER, 0xDCDEA8, 0xB1F080, getBiomesForType(Type.DRY, Type.SAVANNA, Type.SANDY, Type.HOT, Type.DEAD)),
+                createEntity(EntityBlackSoul.class, "blacksoul", MoreCreepsConfig.calculateSpawnRate(MoreCreepsConfig.blackSoulSpawnAmt), 1, 4, EnumCreatureType.MONSTER, 0x335D29, 0x000000, getBiomesForType(Type.DRY, Type.SAVANNA, Type.SANDY, Type.NETHER)),
+                createEntity(EntityMummy.class, "mummy", MoreCreepsConfig.calculateSpawnRate(MoreCreepsConfig.mummySpawnAmt), 1, 3, EnumCreatureType.MONSTER, 0xD5C76E, 0x756918, getBiomesForType(Type.DRY, Type.SAVANNA, Type.SANDY, Type.HOT, Type.DEAD)),
                 createEntity(EntityGooGoat.class, "googoat", MoreCreepsConfig.calculateSpawnRate(MoreCreepsConfig.gooGoatSpawnAmt), 1, 4, EnumCreatureType.CREATURE, 0x24F50F, 0xC5FFDE, getBiomesForType(Type.FOREST, Type.PLAINS, Type.HILLS, Type.MOUNTAIN, Type.SAVANNA)),
                 createEntity(EntityKid.class, "kid", MoreCreepsConfig.calculateSpawnRate(MoreCreepsConfig.kidSpawnAmt), 1, 1, EnumCreatureType.CREATURE, 0xFF5B4D, 0x9E9E9E, getBiomesForType(Type.FOREST, Type.PLAINS, Type.MOUNTAIN, Type.HILLS)),
                 createEntity(EntityLolliman.class, "lolliman", MoreCreepsConfig.calculateSpawnRate(MoreCreepsConfig.lollimanSpawnAmt), 1, 1, EnumCreatureType.CREATURE, 0xFF0000, 0x00FFEC, getBiomesForType(Type.FOREST, Type.PLAINS, Type.MOUNTAIN, Type.HILLS)),
@@ -158,7 +169,7 @@ public class MoreCreepsAndWeirdos
                 createEntity(EntityG.class, "g", MoreCreepsConfig.calculateSpawnRate(MoreCreepsConfig.gSpawnAmt), 1, 1, EnumCreatureType.MONSTER, 0xFF9700, 0x00FF08, getBiomesNotType(Type.COLD, Type.SNOWY, Type.NETHER, Type.END)),
                 createEntity(EntityRobotTed.class, "robot_ted", MoreCreepsConfig.calculateSpawnRate(MoreCreepsConfig.robotTedSpawnAmt), 1, 1, EnumCreatureType.MONSTER, 0x0068FF, 0xA4A4A4, getBiomesNotType(Type.COLD, Type.SNOWY, Type.NETHER, Type.END)),
                 createEntity(EntityRobotTodd.class, "robot_todd", MoreCreepsConfig.calculateSpawnRate(MoreCreepsConfig.robotToddSpawnAmt), 1, 1, EnumCreatureType.MONSTER, 0xA4A4A4, 0xFFC500, getBiomesNotType(Type.COLD, Type.SNOWY, Type.NETHER, Type.END)),
-                createEntity(EntityLawyerFromHell.class, "lawyer_from_hell", MoreCreepsConfig.calculateSpawnRate(MoreCreepsConfig.lawyerFromHellSpawnAmt), 1, 4, EnumCreatureType.MONSTER, 0x7A7D7B, 0x000000, getBiomesForType(Type.FOREST, Type.PLAINS, Type.MOUNTAIN, Type.HILLS)),
+                createEntity(EntityLawyerFromHell.class, "lawyer_from_hell", MoreCreepsConfig.calculateSpawnRate(MoreCreepsConfig.lawyerFromHellSpawnAmt), 1, 1, EnumCreatureType.MONSTER, 0x7A7D7B, 0x000000, getBiomesForType(Type.FOREST, Type.PLAINS, Type.MOUNTAIN, Type.HILLS)),
                 createEntity(EntityMoney.class, "money", 0, 0, 0, EnumCreatureType.AMBIENT),
                 createEntity(EntityBigBaby.class, "bigbaby", MoreCreepsConfig.calculateSpawnRate(MoreCreepsConfig.bigBabySpawnAmt), 1, 1, EnumCreatureType.MONSTER, 0xC2B76E, 0xF8A9FF, getBiomesForType(Type.SANDY, Type.MESA, Type.FOREST)),
                 createEntity(EntityShrink.class, "shrink", 0, 0, 0, EnumCreatureType.AMBIENT),
@@ -171,8 +182,8 @@ public class MoreCreepsAndWeirdos
                 createEntity(EntityHorseHead.class, "horsehead", MoreCreepsConfig.calculateSpawnRate(MoreCreepsConfig.horseHeadSpawnAmt), 1, 1, EnumCreatureType.CREATURE, 0xFF07F3, 0x84653A, getBiomesNotType(Type.COLD, Type.SNOWY, Type.NETHER, Type.END)),
                 createEntity(EntityHotdog.class, "hotdog", MoreCreepsConfig.calculateSpawnRate(MoreCreepsConfig.hotdogSpawnAmt), 1, 2, EnumCreatureType.CREATURE, 0x7C5C32, 0x000000, getBiomesForType(Type.FOREST, Type.PLAINS, Type.MOUNTAIN, Type.HILLS)),
                 createEntity(EntityDigBug.class, "digbug", MoreCreepsConfig.calculateSpawnRate(MoreCreepsConfig.digBugSpawnAmt), 1, 1, EnumCreatureType.CREATURE, 0x58BA4C, 0xE6DD58, getBiomesNotType(Type.COLD, Type.SNOWY, Type.NETHER, Type.END)),
-                createEntity(EntityBubbleScum.class, "bubblescum", MoreCreepsConfig.calculateSpawnRate(MoreCreepsConfig.bubbleScumSpawnAmt), 1, 1, EnumCreatureType.CREATURE, 0xCE51BE, 0x67E6ED, getBiomesNotType(Type.COLD, Type.SNOWY, Type.NETHER, Type.END)),
-                createEntity(EntitySneakySal.class, "sneakysal", MoreCreepsConfig.calculateSpawnRate(MoreCreepsConfig.sneakySalSpawnAmt), 1, 1, EnumCreatureType.MONSTER, 0x0E1317, 0x959595, getBiomesForType(Type.COLD, Type.SNOWY, Type.CONIFEROUS, Type.WASTELAND, Type.DRY, Type.PLAINS, Type.MOUNTAIN)),
+                createEntity(EntityBubbleScum.class, "bubblescum", MoreCreepsConfig.calculateSpawnRate(MoreCreepsConfig.bubbleScumSpawnAmt), 2, 4, EnumCreatureType.CREATURE, 0xCE51BE, 0x67E6ED, getBiomesNotType(Type.COLD, Type.SNOWY, Type.NETHER, Type.END)),
+                createEntity(EntitySneakySal.class, "sneakysal", MoreCreepsConfig.calculateSpawnRate(MoreCreepsConfig.sneakySalSpawnAmt), 1, 1, EnumCreatureType.MONSTER, 0x0E1317, 0x959595, getBiomesForType(Type.COLD, Type.SNOWY, Type.CONIFEROUS)),
                 createEntity(EntityRatMan.class, "ratman", 0, 1, 2, EnumCreatureType.MONSTER, 0x565656, 0xF0A7F1),
                 createEntity(EntityPrisoner.class, "prisoner", 0, 1, 1, EnumCreatureType.CREATURE, 0xFBFBFB, 0xAAAAAA),
                 createEntity(EntityBullet.class, "bullet", 0, 0, 0, EnumCreatureType.AMBIENT),
@@ -211,6 +222,8 @@ public class MoreCreepsAndWeirdos
                 createEntity(EntityHippo.class, "hippo", MoreCreepsConfig.calculateSpawnRate(MoreCreepsConfig.hippoSpawnAmt),1 , 1, EnumCreatureType.CREATURE, 0x858585, 0x4D4D4D, getBiomesForType(Type.PLAINS, Type.HOT, Type.WET, Type.BEACH, Type.SAVANNA, Type.SWAMP, Type.RIVER))
         );
     }
+
+    public boolean test = false;
 
     public static EntityEntry createEntity(Class<? extends Entity> classz, String name, int weight, int min, int max, EnumCreatureType creatureType, int primaryColor, int secondaryColor, Biome... biomes)
     {

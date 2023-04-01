@@ -20,7 +20,7 @@ public class CreepsItemTool extends ItemTool {
 
         setUnlocalizedName(MoreCreepsAndWeirdos.modid + "." + itemName);
 
-        setCreativeTab(CreepsItemHandler.creativeTab);
+        setCreativeTab(MoreCreepsAndWeirdos.creativeTab);
     }
 
     public float getSoundVolume()

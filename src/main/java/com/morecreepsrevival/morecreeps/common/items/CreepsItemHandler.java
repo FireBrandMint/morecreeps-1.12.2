@@ -20,14 +20,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @EventBusSubscriber(modid = MoreCreepsAndWeirdos.modid)
 public class CreepsItemHandler
 {
-    public static final CreativeTabs creativeTab = new CreativeTabs("creepsTab")
-    {
-        public ItemStack getTabIconItem()
-        {
-            return new ItemStack(floobAchievement);
-        }
-    };
-
     //Achievements
     public static final Item floobAchievement = new CreepsItem("floob_achievement");
 
