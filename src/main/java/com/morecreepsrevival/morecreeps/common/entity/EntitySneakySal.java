@@ -73,7 +73,7 @@ public class EntitySneakySal extends EntityCreepBase implements IRangedAttackMob
 
         setCreepTypeName("Sneaky Sal");
 
-        setSize(1.5f, 4.0f);
+        setSize(1.5f, 2.0f);
 
         setModelSize(1.5f);
 

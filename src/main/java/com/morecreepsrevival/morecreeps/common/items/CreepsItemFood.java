@@ -20,7 +20,7 @@ public abstract class CreepsItemFood extends ItemFood
 
         setItemName(itemName);
 
-        setCreativeTab(CreepsItemHandler.creativeTab);
+        setCreativeTab(MoreCreepsAndWeirdos.creativeTab);
     }
 
     public CreepsItemFood(String itemName, int amount)

@@ -56,6 +56,8 @@ public class EntityInvisibleMan extends EntityCreepBase implements IEntityCanCha
 
         super.setTexture("textures/entity/invisibleman.png");
 
+        setHeldItem(EnumHand.MAIN_HAND, new ItemStack(Items.STICK));
+
         updateAttributes();
 
     }
@@ -144,6 +146,7 @@ public class EntityInvisibleMan extends EntityCreepBase implements IEntityCanCha
         if(hasAngryTexture && !serverSaysWeAreAngry) {
             this.setTexture("textures/entity/invisibleman.png");
             hasAngryTexture = false;
+            playSound(CreepsSoundHandler.invisibleManForget, 1.0f, 1.0f);
         }
 
         if(!hasAngryTexture && serverSaysWeAreAngry) {

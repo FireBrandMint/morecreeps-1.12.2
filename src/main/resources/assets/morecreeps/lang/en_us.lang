@@ -51,6 +51,7 @@ item.morecreeps.pee_bucket.name=Pee Bucket
 item.morecreeps.vhstape.name=VHS Tape
 item.morecreeps.vhstape2.name=VHS Tape 2
 item.morecreeps.vhammer.name=VHS Hammer
+item.morecreeps.growbot_growray.name=Grow Ray
 
 # Entities
 entity.morecreeps.guineapig.name=Guinea Pig

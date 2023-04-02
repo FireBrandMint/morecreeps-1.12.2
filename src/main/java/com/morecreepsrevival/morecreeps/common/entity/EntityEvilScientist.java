@@ -159,12 +159,7 @@ public class EntityEvilScientist extends EntityCreepBase implements IMob, IEntit
     @Override
     protected SoundEvent getAmbientSound()
     {
-        if (getStage() > 3)
-        {
-            return CreepsSoundHandler.evilLaughSound;
-        }
-
-        return CreepsSoundHandler.evilExplosionSound;
+        return CreepsSoundHandler.evilLaughSound;
     }
 
     @Override
@@ -178,6 +173,7 @@ public class EntityEvilScientist extends EntityCreepBase implements IMob, IEntit
     {
         return CreepsSoundHandler.evilExplosionSound;
     }
+
 
     @Override
     protected void dropItemsOnDeath()

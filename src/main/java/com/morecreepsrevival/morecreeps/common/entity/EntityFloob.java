@@ -1,7 +1,9 @@
 package com.morecreepsrevival.morecreeps.common.entity;
 
+import com.morecreepsrevival.morecreeps.common.config.MoreCreepsConfig;
 import com.morecreepsrevival.morecreeps.common.items.CreepsItemHandler;
 import com.morecreepsrevival.morecreeps.common.sounds.CreepsSoundHandler;
+import net.minecraft.client.renderer.entity.RenderCreeper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.IRangedAttackMob;
@@ -72,7 +74,14 @@ public class EntityFloob extends EntityCreepBase implements IRangedAttackMob, IM
 
         targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
 
-        targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityVillager.class, true));
+        if(MoreCreepsConfig.floobTargetVillagers) {
+            targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityVillager.class, true));
+        }
+    }
+
+    @Override
+    public void onLivingUpdate() {
+        super.onLivingUpdate();
     }
 
     @Override

@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 
 public class EntityTrophy extends EntityCreepBase
 {
-    private static final int defaultLifetime = 400;
+    private static final int defaultLifetime = 75;
     private static final DataParameter<Integer> partyTime = EntityDataManager.createKey(EntityTrophy.class, DataSerializers.VARINT);
 
     private static final DataParameter<Integer> trophyLifespan = EntityDataManager.createKey(EntityTrophy.class, DataSerializers.VARINT);
@@ -31,13 +31,15 @@ public class EntityTrophy extends EntityCreepBase
 
         setCreepName("Trophy");
 
-        setModelSize(3f);
+        setModelSize(1.5f);
 
         experienceValue = 0;
 
         baseHealth = 1f;
 
         baseSpeed = 0.0d;
+
+        setEntityInvulnerable(true);
 
         setSize(1.0f, 5f);
 
@@ -95,7 +97,6 @@ public class EntityTrophy extends EntityCreepBase
     public void onLivingUpdate()
     {
         //super.onLivingUpdate();
-
         float rotationCurr = dataManager.get(rotationDegrees);
         if (rotationCurr < 360f)dataManager.set(rotationDegrees, rotationCurr + 9f);
         else dataManager.set(rotationDegrees, rotationCurr - 351f);
@@ -126,6 +127,12 @@ public class EntityTrophy extends EntityCreepBase
             if (dataManager.get(trophyLifespan) < 1)
             {
                 setDead();
+                int amt = rand.nextInt(25) + 10;
+
+                for (int i = 0; i < amt; i++)
+                {
+                    dropItem(CreepsItemHandler.money, 1);
+                }
             }
         }
     }
@@ -145,7 +152,7 @@ public class EntityTrophy extends EntityCreepBase
     {
         // TODO: confetti
 
-        for(int i = 0; i < 16; ++i)
+        for(int i = 0; i < 20; ++i)
         {
             double factor1 = CreepsUtil.GetRandomUnitMinus(rand);
             double factor2 = CreepsUtil.GetRandomUnitMinus(rand);
@@ -163,7 +170,7 @@ public class EntityTrophy extends EntityCreepBase
 
             if(particle == null) break;
 
-            particle.setMaxAge(50);
+            particle.setMaxAge(80);
         }
     }
 
