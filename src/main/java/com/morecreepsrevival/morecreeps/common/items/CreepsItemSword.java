@@ -14,7 +14,7 @@ public class CreepsItemSword extends ItemSword
 
         setUnlocalizedName(MoreCreepsAndWeirdos.modid + "." + itemName);
 
-        setCreativeTab(CreepsItemHandler.creativeTab);
+        setCreativeTab(MoreCreepsAndWeirdos.creativeTab);
     }
 
     public float getSoundVolume()

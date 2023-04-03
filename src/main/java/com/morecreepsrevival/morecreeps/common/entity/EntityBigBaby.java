@@ -38,9 +38,9 @@ public class EntityBigBaby extends EntityCreepBase implements IMob, IEntityCanCh
 
         creatureType = EnumCreatureType.MONSTER;
 
-        setSize(width * 3.25f, height * 3.55f);
+        setSize(6.5f, 6.5f);
 
-        setModelSize(6.5f);
+        setModelSize(6.0f);
 
         baseHealth = (float)rand.nextInt(40) + 40.0f;
 
@@ -244,7 +244,7 @@ public class EntityBigBaby extends EntityCreepBase implements IMob, IEntityCanCh
     }
 
     @Override
-    public float maxShrink() { return 0.5f; }
+    public float maxShrink() { return 0.25f; }
 
     @Override
     public float getShrinkRayAmount() { return 0.25f; }

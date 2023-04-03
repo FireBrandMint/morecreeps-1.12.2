@@ -13,7 +13,7 @@ public class CreepsItemArmor extends ItemArmor
 
         setItemName(itemName);
 
-        setCreativeTab(CreepsItemHandler.creativeTab);
+        setCreativeTab(MoreCreepsAndWeirdos.creativeTab);
     }
 
     public float getSoundVolume()

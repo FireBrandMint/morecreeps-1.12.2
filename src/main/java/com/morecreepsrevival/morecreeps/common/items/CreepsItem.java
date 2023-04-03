@@ -14,7 +14,7 @@ public class CreepsItem extends Item
 
         if (!noCreativeTab)
         {
-            setCreativeTab(CreepsItemHandler.creativeTab);
+            setCreativeTab(MoreCreepsAndWeirdos.creativeTab);
         }
     }
 
