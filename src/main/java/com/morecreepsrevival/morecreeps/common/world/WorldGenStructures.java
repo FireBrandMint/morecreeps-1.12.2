@@ -27,55 +27,56 @@ public class WorldGenStructures implements IWorldGenerator
         generateStructures(world, rand, chunkX, chunkZ);
     }
 
-    private void generateStructures(World world, Random rand, int chunkX, int chunkZ)
-    {
-        if (MoreCreepsConfig.pyramidGen)
-        {
-            if (pyramidCount >= (1100 - (MoreCreepsConfig.pyramidRarity * 100) + 100))
-            {
-                if (rand.nextInt(30) == 0)
-                {
-                    BlockPos pos = new BlockPos((chunkX << 4) + rand.nextInt(16) + 16, 65, (chunkZ << 4) + rand.nextInt(16) + 16);
-
-                    if ((new WorldGenPyramid()).generate(world, rand, pos))
-                    {
-                        pyramidCount = 0;
-
-                        for (EntityPlayer player : world.getEntitiesWithinAABB(EntityPlayer.class, (new AxisAlignedBB(pos)).grow(256.0d, 256.0d, 256.0d)))
-                        {
-                            CreepsPacketHandler.INSTANCE.sendTo(new MessagePlayPyramidDiscoveredSound(), (EntityPlayerMP)player);
-                        }
-                    }
-                }
-            }
-            else
-            {
-                pyramidCount++;
-            }
+public boolean isValidDim(World world){
+    int dimension = world.provider.getDimension();
+    boolean isValid = true;
+    for (int did : MoreCreepsConfig.dimensionGenWl){
+        if (did == dimension){
+            isValid = true;
+            return isValid;
         }
+        else{
+            isValid = false;
+        }
+    }
+    return isValid;
+}
+    private void generateStructures(World world, Random rand, int chunkX, int chunkZ) {
+        if (isValidDim(world)){
+            if (MoreCreepsConfig.pyramidGen) {
+                if (pyramidCount >= (1100 - (MoreCreepsConfig.pyramidRarity * 100) + 100)) {
+                    if (rand.nextInt(30) == 0) {
+                        BlockPos pos = new BlockPos((chunkX << 4) + rand.nextInt(16) + 16, 65, (chunkZ << 4) + rand.nextInt(16) + 16);
 
-        if (MoreCreepsConfig.castleGen)
-        {
-            if (castleCount >= (1100 - (MoreCreepsConfig.castleRarity * 100) + 1300))
-            {
-                if (rand.nextInt(30) == 0)
-                {
-                    BlockPos pos = new BlockPos((chunkX << 4) + rand.nextInt(16) + 16, rand.nextInt(40) + 80, (chunkZ << 4) + rand.nextInt(16) + 16);
+                        if ((new WorldGenPyramid()).generate(world, rand, pos)) {
+                            pyramidCount = 0;
 
-                    if ((new WorldGenCastle()).generate(world, rand, pos))
-                    {
-                        castleCount = 0;
-
-                        for (EntityPlayer player : world.getEntitiesWithinAABB(EntityPlayer.class, (new AxisAlignedBB(pos)).grow(256.0d, 256.0d, 256.0d)))
-                        {
-                            CreepsPacketHandler.INSTANCE.sendTo(new MessagePlayBattleCastleSound(), (EntityPlayerMP)player);
+                            for (EntityPlayer player : world.getEntitiesWithinAABB(EntityPlayer.class, (new AxisAlignedBB(pos)).grow(256.0d, 256.0d, 256.0d))) {
+                                CreepsPacketHandler.INSTANCE.sendTo(new MessagePlayPyramidDiscoveredSound(), (EntityPlayerMP) player);
+                            }
                         }
                     }
+                } else {
+                    pyramidCount++;
                 }
             }
-            else
-            {
-                castleCount++;
+
+            if (MoreCreepsConfig.castleGen) {
+                if (castleCount >= (1100 - (MoreCreepsConfig.castleRarity * 100) + 1300)) {
+                    if (rand.nextInt(30) == 0) {
+                        BlockPos pos = new BlockPos((chunkX << 4) + rand.nextInt(16) + 16, rand.nextInt(40) + 80, (chunkZ << 4) + rand.nextInt(16) + 16);
+
+                        if ((new WorldGenCastle()).generate(world, rand, pos)) {
+                            castleCount = 0;
+
+                            for (EntityPlayer player : world.getEntitiesWithinAABB(EntityPlayer.class, (new AxisAlignedBB(pos)).grow(256.0d, 256.0d, 256.0d))) {
+                                CreepsPacketHandler.INSTANCE.sendTo(new MessagePlayBattleCastleSound(), (EntityPlayerMP) player);
+                            }
+                        }
+                    }
+                } else {
+                    castleCount++;
+                }
             }
         }
     }
