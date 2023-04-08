@@ -15,11 +15,15 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.*;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
 import java.util.Random;
 
 public class CreepsUtil {
     static final float fullRadian = 3.1415926536F;
 
+    @SideOnly(Side.CLIENT)
     static ParticleBreaking.Factory eatingParticlesFactory = new ParticleBreaking.Factory();
 
     /**
@@ -65,6 +69,7 @@ public class CreepsUtil {
         return (rand.nextInt(200000) - 100000) * 0.00001;
     }
 
+    @SideOnly(Side.CLIENT)
     public static Particle SpawnEatingParticle(
             World world, double xCoordIn, double yCoordIn, double zCoordIn,
             double xSpeedIn, double ySpeedIn, double zSpeedIn, float size, Item itemFodder)

@@ -5,7 +5,9 @@ import com.morecreepsrevival.morecreeps.common.entity.*;
 import com.morecreepsrevival.morecreeps.common.helpers.CreepsUtil;
 import com.morecreepsrevival.morecreeps.common.items.CreepsItemHandler;
 import com.morecreepsrevival.morecreeps.common.sounds.CreepsSoundHandler;
+import ibxm.Player;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockChest;
 import net.minecraft.block.BlockDoor;
 import net.minecraft.block.BlockStairs;
 import net.minecraft.block.state.IBlockState;
@@ -19,6 +21,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.tileentity.TileEntityMobSpawner;
 import net.minecraft.util.EnumFacing;
@@ -109,7 +112,20 @@ public class JailManager
             spawnLawyerGoul(world, playerpos.getX(), playerpos.getY(), playerpos.getZ());
         }
 
+        BlockPos chestpos1 = new BlockPos((int)Math.round(structurepos.getX()) + 13, structurepos.getY() + 1, structurepos.getZ() + 54);
+        BlockPos chestpos2 = new BlockPos((int)Math.round(structurepos.getX()) + 13, structurepos.getY() + 1, structurepos.getZ() + 53);
+
         fixPlayer(player, playerpos);
+
+        try
+        {
+            storePlayerItems(world, player, chestpos1, chestpos2);
+        }
+        catch (Exception e)
+        {
+            player.sendMessage(new TextComponentString(e.getMessage()));
+        }
+        player.sendMessage(new TextComponentString("SUCESS"));
 
         return true;
     }
@@ -929,6 +945,101 @@ public class JailManager
         player.heal(20.0f);
 
         player.playSound(CreepsSoundHandler.lawyerBustedSound, 1.0f, 1.0f);
+    }
+
+    private static void storePlayerItems (World world, EntityPlayer player, BlockPos chestpos1, BlockPos chestpos2)
+    {
+        player.sendMessage(new TextComponentString(chestpos1.toString()));
+        player.sendMessage(new TextComponentString(chestpos2.toString()));
+
+        TileEntityChest chest1 = new TileEntityChest();
+        TileEntityChest chest2 = new TileEntityChest();
+
+        //world.setBlockState(chestpos1, Blocks.CHEST.getDefaultState());
+        //world.setBlockState(chestpos2, Blocks.CHEST.getDefaultState());
+
+        world.setTileEntity(chestpos1, chest1);
+        world.setTileEntity(chestpos2, chest2);
+
+        int chest1Size = chest1.getSizeInventory();
+
+        TileEntityChest chestToUse = chest1;
+
+        int chestIndex = 0;
+
+        for (int i = 0; i < player.inventory.mainInventory.size(); i++)
+        {
+            ItemStack itemStack = player.inventory.mainInventory.get(i);
+
+            if (!itemStack.isEmpty())
+            {
+                if (chestToUse.equals(chest1) && (chestIndex + 1) > chest1Size)
+                {
+                    chestToUse = chest2;
+
+                    chestIndex = 0;
+                }
+
+                chestToUse.setInventorySlotContents(chestIndex++, itemStack.copy());
+
+                itemStack.shrink(itemStack.getCount());
+            }
+        }
+
+        for (int i = 0; i < player.inventory.armorInventory.size(); i++)
+        {
+            ItemStack itemStack = player.inventory.armorInventory.get(i);
+
+            if (!itemStack.isEmpty())
+            {
+                if (chestToUse.equals(chest1) && (chestIndex + 1) > chest1Size)
+                {
+                    chestToUse = chest2;
+
+                    chestIndex = 0;
+                }
+
+                chestToUse.setInventorySlotContents(chestIndex++, itemStack.copy());
+
+                itemStack.shrink(itemStack.getCount());
+            }
+        }
+
+        for (int i = 0; i < player.inventory.offHandInventory.size(); i++)
+        {
+            ItemStack itemStack = player.inventory.offHandInventory.get(i);
+
+            if (!itemStack.isEmpty())
+            {
+                if (chestToUse.equals(chest1) && (chestIndex + 1) > chest1Size)
+                {
+                    chestToUse = chest2;
+
+                    chestIndex = 0;
+                }
+
+                chestToUse.setInventorySlotContents(chestIndex++, itemStack.copy());
+
+                itemStack.shrink(itemStack.getCount());
+            }
+        }
+
+        for (ItemStack itemStack : player.getEquipmentAndArmor())
+        {
+            if (!itemStack.isEmpty())
+            {
+                if (chestToUse.equals(chest1) && (chestIndex + 1) > chest1Size)
+                {
+                    chestToUse = chest2;
+
+                    chestIndex = 0;
+                }
+
+                chestToUse.setInventorySlotContents(chestIndex++, itemStack.copy());
+
+                itemStack.shrink(itemStack.getCount());
+            }
+        }
     }
 
     private static void spawnLawyerGoul(World world, double strux, double struy, double struz)
