@@ -141,9 +141,10 @@ public class MoreCreepsConfig
 
     public static String hideUpdateGuiVersion = "";
 
-    public static double globalSpawnRate = 0.75f;
+    public static double globalSpawnRate = 1.0f;
 
     public static boolean spawnInNonVanillaBiomes = false;
+    public static int[] dimensionGenWl = new int[] {};
 
     public static String[] nonVanillaBiomes = new String[] { };
 
@@ -167,11 +168,13 @@ public class MoreCreepsConfig
 
             unlimitedSpawn = config.get("Spawn", "Unlimited Spawn Length", false, "Once activated, you can set what value you want for mob spawning.").getBoolean();
 
-            globalSpawnRate = config.get("Spawn", "Global Spawn Rate", 0.75f, "This setting controls the overall spawn rate. The spawn rate of every mob is multiplied by this number. So 0.5 is the default rate, 1.0 is 2x the rate, 0.25 is half the rate, etc.").getDouble();
+            globalSpawnRate = config.get("Spawn", "Global Spawn Rate", 1.0f, "This setting controls the overall spawn rate. The spawn rate of every mob is multiplied by this number. So 1.0 is the default rate, 2.0 is 2x the rate, 0.5 is half the rate, etc.").getDouble();
 
             spawnInNonVanillaBiomes = config.get("Spawn", "Spawn In Non-Vanilla Biomes", false, "Setting this to true will cause More Creeps mobs to spawn in biomes added by other mods.").getBoolean();
 
             nonVanillaBiomes = config.get("Spawn", "Non-Vanilla Biomes", new String[] { }, "This a list of Non-Vanilla biomes that More Creeps mobs should spawn in.").getStringList();
+
+            dimensionGenWl = config.get(worldGen, "Dimensionswl", new int[] { }, "This a list of dimensions that mocreeps generation will occur in").getIntList();
 
             pyramidGen = config.get(worldGen, "Enable Pyramid Gen", true).getBoolean();
 
@@ -179,7 +182,7 @@ public class MoreCreepsConfig
 
             castleGen = config.get(worldGen, "Enable Castle", true).getBoolean();
 
-            castleRarity = config.get(worldGenRarity, "Castle Rarity", 1000, "By default : 1000").getInt();
+            castleRarity = config.get(worldGenRarity, "Castle Rarity", 500, "By default : 500").getInt();
 
             rayGunFire = config.get(itemProperty, "Enable Raygun Fire", true).getBoolean();
 
@@ -195,7 +198,7 @@ public class MoreCreepsConfig
 
             blood = config.get(mobProperty, "Enable Blood", true).getBoolean();
 
-            blorpMaxSize = config.get(mobProperty, "Blorp Max Size", 4).getInt();
+            blorpMaxSize = config.get(mobProperty, "Blorp Max Size", 6).getInt();
 
             guineaPigSpawnAmt = config.get(spawnNbr, "Guinea Pig", 5).getInt();
 
@@ -217,17 +220,17 @@ public class MoreCreepsConfig
 
             gSpawnAmt = config.get(spawnNbr, "G", 3).getInt();
 
-            robotTedSpawnAmt = config.get(spawnNbr, "Robot Ted", 2).getInt();
+            robotTedSpawnAmt = config.get(spawnNbr, "Robot Ted", 1).getInt();
 
-            robotToddSpawnAmt = config.get(spawnNbr, "Robot Todd", 2).getInt();
+            robotToddSpawnAmt = config.get(spawnNbr, "Robot Todd", 1).getInt();
 
             lawyerFromHellSpawnAmt = config.get(spawnNbr, "Lawyer From Hell", 3).getInt();
 
-            bigBabySpawnAmt = config.get(spawnNbr, "Big Baby", 4).getInt();
+            bigBabySpawnAmt = config.get(spawnNbr, "Big Baby", 5).getInt();
 
             thiefSpawnAmt = config.get(spawnNbr, "Thief", 3).getInt();
 
-            floobSpawnAmt = config.get(spawnNbr, "Floob", 5).getInt();
+            floobSpawnAmt = config.get(spawnNbr, "Floob", 3).getInt();
 
             floobShipSpawnAmt = config.get(spawnNbr, "Floob Ship", 1).getInt();
 
@@ -235,11 +238,11 @@ public class MoreCreepsConfig
 
             digBugSpawnAmt = config.get(spawnNbr, "Dig Bug", 3).getInt();
 
-            bubbleScumSpawnAmt = config.get(spawnNbr, "Bubble Scum", 5).getInt();
+            bubbleScumSpawnAmt = config.get(spawnNbr, "Bubble Scum", 3).getInt();
 
-            sneakySalSpawnAmt = config.get(spawnNbr, "Sneaky Sal", 1).getInt();
+            sneakySalSpawnAmt = config.get(spawnNbr, "Sneaky Sal", 5).getInt();
 
-            snowDevilSpawnAmt = config.get(spawnNbr, "Snow Devil", 3).getInt();
+            snowDevilSpawnAmt = config.get(spawnNbr, "Snow Devil", 1).getInt();
 
             blorpSpawnAmt = config.get(spawnNbr, "Blorp", 3).getInt();
 
@@ -247,7 +250,7 @@ public class MoreCreepsConfig
 
             camelJockeySpawnAmt = config.get(spawnNbr, "Camel Jockey", 1).getInt();
 
-            bumSpawnAmt = config.get(spawnNbr, "Bum", 3).getInt();
+            bumSpawnAmt = config.get(spawnNbr, "Bum", 1).getInt();
 
             cavemanSpawnAmt = config.get(spawnNbr, "Caveman", 1).getInt();
 
@@ -257,9 +260,9 @@ public class MoreCreepsConfig
 
             hippoSpawnAmt = config.get(spawnNbr, "Hippo", 3).getInt();
 
-            hunchbackSpawnAmt = config.get(spawnNbr, "Hunchback", 2).getInt();
+            hunchbackSpawnAmt = config.get(spawnNbr, "Hunchback", 1).getInt();
 
-            invisibleManSpawnAmt = config.get(spawnNbr, "Invisible Man", 2).getInt();
+            invisibleManSpawnAmt = config.get(spawnNbr, "Invisible Man", 1).getInt();
 
             mandogSpawnAmt = config.get(spawnNbr, "Mandog", 1).getInt();
 
@@ -269,9 +272,9 @@ public class MoreCreepsConfig
 
             rockMonsterSpawnAmt = config.get(spawnNbr, "Rock Monster", 1).getInt();
 
-            rocketGiraffeSpawnAmt = config.get(spawnNbr, "Rocket Giraffe", 4).getInt();
+            rocketGiraffeSpawnAmt = config.get(spawnNbr, "Rocket Giraffe", 1).getInt();
 
-            zebraSpawnAmt = config.get(spawnNbr, "Zebra", 5).getInt();
+            zebraSpawnAmt = config.get(spawnNbr, "Zebra", 1).getInt();
 
             growbotGreggSpawnAmt = config.get(spawnNbr, "Growbot Gregg", 1).getInt();
 
@@ -279,7 +282,7 @@ public class MoreCreepsConfig
 
             moneyManSSpawnAmt = config.get(spawnNbr, "Money Man S", 1).getInt();
 
-            vhsSpawnAmt = config.get(spawnNbr, "Walking VHS", 3).getInt();
+            vhsSpawnAmt = config.get(spawnNbr, "Walking VHS", 1).getInt();
 
             hideUpdateGuiVersion = config.get(miscProperty, "Hide Update for Version", "", "This property is set when you choose to ignore the Update Available popup with the version you're being offered.").getString();
 
@@ -310,7 +313,7 @@ public class MoreCreepsConfig
 
         if (vhsSpawnAmt < 0 || vhsSpawnAmt > 12)
         {
-            vhsSpawnAmt = 3;
+            vhsSpawnAmt = 1;
         }
 
         if (armyGuySpawnAmt < 0 || armyGuySpawnAmt > 12)
@@ -325,7 +328,7 @@ public class MoreCreepsConfig
 
         if (bigBabySpawnAmt < 0 || bigBabySpawnAmt > 12)
         {
-            bigBabySpawnAmt = 4;
+            bigBabySpawnAmt = 5;
         }
 
         if (blorpSpawnAmt < 0 || blorpSpawnAmt > 12)
@@ -335,12 +338,12 @@ public class MoreCreepsConfig
 
         if (bubbleScumSpawnAmt < 0 || bubbleScumSpawnAmt > 12)
         {
-            bubbleScumSpawnAmt = 5;
+            bubbleScumSpawnAmt = 3;
         }
 
         if (bumSpawnAmt < 0 || bumSpawnAmt > 12)
         {
-            bumSpawnAmt = 3;
+            bumSpawnAmt = 1;
         }
 
         if (camelSpawnAmt < 0 || camelSpawnAmt > 12)
@@ -375,7 +378,7 @@ public class MoreCreepsConfig
 
         if (floobSpawnAmt < 0 || floobShipSpawnAmt > 12)
         {
-            floobSpawnAmt = 5;
+            floobSpawnAmt = 3;
         }
 
         if (floobShipSpawnAmt < 0 || floobShipSpawnAmt > 12)
@@ -410,12 +413,12 @@ public class MoreCreepsConfig
 
         if (hunchbackSpawnAmt < 0 || hunchbackSpawnAmt > 12)
         {
-            hunchbackSpawnAmt = 2;
+            hunchbackSpawnAmt = 1;
         }
 
         if (invisibleManSpawnAmt < 0 || invisibleManSpawnAmt > 12)
         {
-            invisibleManSpawnAmt = 2;
+            invisibleManSpawnAmt = 1;
         }
 
         if (kidSpawnAmt < 0 || kidSpawnAmt > 12)
@@ -448,7 +451,7 @@ public class MoreCreepsConfig
             nonSwimmerSpawnAmt = 1;
         }
 
-        if (sneakySalSpawnAmt < 0 || sneakySalSpawnAmt > 24)
+        if (sneakySalSpawnAmt < 0 || sneakySalSpawnAmt > 12)
         {
             sneakySalSpawnAmt = 1;
         }
@@ -460,12 +463,12 @@ public class MoreCreepsConfig
 
         if (robotTedSpawnAmt < 0 || robotTedSpawnAmt > 12)
         {
-            robotTedSpawnAmt = 2;
+            robotTedSpawnAmt = 1;
         }
 
         if (robotToddSpawnAmt < 0 || robotToddSpawnAmt > 12)
         {
-            robotToddSpawnAmt = 2;
+            robotToddSpawnAmt = 1;
         }
 
         if (rockMonsterSpawnAmt < 0 || rockMonsterSpawnAmt > 5)
@@ -475,12 +478,12 @@ public class MoreCreepsConfig
 
         if (rocketGiraffeSpawnAmt < 0 || rocketGiraffeSpawnAmt > 12)
         {
-            rocketGiraffeSpawnAmt = 4;
+            rocketGiraffeSpawnAmt = 1;
         }
 
         if (snowDevilSpawnAmt < 0 || snowDevilSpawnAmt > 12)
         {
-            snowDevilSpawnAmt = 3;
+            snowDevilSpawnAmt = 1;
         }
 
         if (thiefSpawnAmt < 0 || thiefSpawnAmt > 12)
@@ -490,7 +493,7 @@ public class MoreCreepsConfig
 
         if (zebraSpawnAmt < 0 || zebraSpawnAmt > 12)
         {
-            zebraSpawnAmt = 5;
+            zebraSpawnAmt = 1;
         }
 
         if (growbotGreggSpawnAmt < 0 || growbotGreggSpawnAmt > 12)
@@ -510,12 +513,12 @@ public class MoreCreepsConfig
 
         if (castleRarity < 1 || castleRarity > 10)
         {
-            castleRarity = 2;
+            castleRarity = 5;
         }
 
-        if (blorpMaxSize < 4 || blorpMaxSize > 99)
+        if (blorpMaxSize < 6 || blorpMaxSize > 99)
         {
-            blorpMaxSize = 4;
+            blorpMaxSize = 6;
         }
     }
 

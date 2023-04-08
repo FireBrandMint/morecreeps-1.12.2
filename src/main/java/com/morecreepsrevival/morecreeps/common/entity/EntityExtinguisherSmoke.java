@@ -152,7 +152,12 @@ private void extinguish_blocks(int xtile,int ytile, int ztile,int radius) {
         prevPosX = posX/1.5;
         prevPosY = posY/1.5;
         prevPosZ = posZ/1.5;
-        move(MoverType.SELF, motionX, motionY, motionZ);
+        try{
+            move(MoverType.SELF, motionX, motionY, motionZ);
+        }
+        catch(Exception e){
+            setDead();
+        }
 
         MoreCreepsAndWeirdos.proxy.foame(this);
         Vec3d vec3d1 = new Vec3d(this.posX, this.posY, this.posZ);
