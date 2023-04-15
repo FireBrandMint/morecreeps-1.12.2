@@ -15,6 +15,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityTrophy extends EntityCreepBase
 {
@@ -111,8 +113,6 @@ public class EntityTrophy extends EntityCreepBase
         this.motionZ = 0f;
         if(this.motionY > 0f) this.motionY = 0f;
 
-        if(world.isRemote) return;
-
         if (dataManager.get(partyTime) > 1)
         {
             dataManager.set(partyTime, dataManager.get(partyTime) - 1);
@@ -148,9 +148,11 @@ public class EntityTrophy extends EntityCreepBase
         }
     }
 
+
     private void spawnConfetti()
     {
-        // TODO: confetti
+
+        if(!world.isRemote) return;
 
         for(int i = 0; i < 20; ++i)
         {

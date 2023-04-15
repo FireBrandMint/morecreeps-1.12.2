@@ -60,7 +60,7 @@ public class ItemGemSword extends CreepsItemSword
     }
 
 
-    /*
+
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
     {
@@ -70,7 +70,7 @@ public class ItemGemSword extends CreepsItemSword
         if(!worldIn.isRemote) JailManager.buildJail(playerIn, worldIn, itemRand);
 
         return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
-    }*/
+    }
 
     @Override
     public float getSoundVolume()

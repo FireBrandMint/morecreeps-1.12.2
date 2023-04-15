@@ -82,10 +82,6 @@ public class WorldGenCastle extends WorldGenerator
 
         PlacementSettings settings = new PlacementSettings().setIgnoreStructureBlock(false).setIgnoreEntities(false);
 
-        Minecraft.getMinecraft().player.sendMessage(
-                new TextComponentString(structurepos.toString())
-        );
-
         IBlockState state = world.getBlockState(structurepos);
 
         world.notifyBlockUpdate(structurepos, state, state, 3);
