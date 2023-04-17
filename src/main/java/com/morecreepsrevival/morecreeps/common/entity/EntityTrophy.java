@@ -129,10 +129,11 @@ public class EntityTrophy extends EntityCreepBase
                 setDead();
                 int amt = rand.nextInt(25) + 10;
 
-                for (int i = 0; i < amt; i++)
-                {
-                    dropItem(CreepsItemHandler.money, 1);
-                }
+                if(this.isServerWorld())
+                    for (int i = 0; i < amt; i++)
+                    {
+                        dropItem(CreepsItemHandler.money, 1);
+                    }
             }
         }
     }
@@ -151,8 +152,7 @@ public class EntityTrophy extends EntityCreepBase
 
     private void spawnConfetti()
     {
-
-        if(!world.isRemote) return;
+        if(this.isServerWorld() || world == null) return;
 
         for(int i = 0; i < 20; ++i)
         {
@@ -163,7 +163,7 @@ public class EntityTrophy extends EntityCreepBase
 
             Item selecteditem = Item.REGISTRY.getRandomObject(rand);
 
-            Particle particle =  CreepsUtil.SpawnEatingParticle(
+            Particle particle = CreepsUtil.SpawnEatingParticle(
                     world,
                     posX, posY + 1, posZ,
                     movDir.x * 0.11F, 0.6D, movDir.y * 0.11F,

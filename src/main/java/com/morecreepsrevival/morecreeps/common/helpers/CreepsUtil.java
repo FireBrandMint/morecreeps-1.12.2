@@ -76,6 +76,8 @@ public class CreepsUtil {
     {
         if(Minecraft.getMinecraft().isGamePaused()) return null;
 
+        if(eatingParticlesFactory == null) return null;
+
         Particle toSpawn = eatingParticlesFactory.createParticle(
                 -1,
                 world,
